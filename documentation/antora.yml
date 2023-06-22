@@ -1,5 +1,5 @@
-name: solution-pattern-template
-title: Template Tutorial
+name: solution-pattern-sentiment-analysis
+title: Sentiment Analysis
 version: master
 nav:
   - modules/ROOT/nav.adoc

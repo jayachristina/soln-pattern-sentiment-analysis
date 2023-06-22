@@ -1,7 +1,18 @@
 == The story behind this solution pattern
 
-A description of the story that was used to build the demo and architectures of this SP.
+This solution pattern extends *Globex* a fictitious retail store which has undergone modernization journey and has already adopted Kafka as a streaming platform. Globex wants to now extend their eCommerce website to allow customers to leave their reviews of the product catalogue.
+
+Globex would like to 
+
+* Moderate the language comments to ensure foul language is appropriately filtered out
+* Build a Sentiment Analysis system to gain business intelligence based on the product reviews 
 
 == The Solution
 
-This is a summary of the solution
+The solution based on an Event Driven Architecture which based on Apache Kafka as the data streaming platform for product reviews. The Product Reviews submitted by a customer is pushed in a Kafka topic, which is then consumed by both a *Review Moderation Service* (moderate for foul language) and *Sentiment Analysis Service* (scores the sentiment as positive or negative).
+
+The data flows in and out of different systems through the OpenShift Serverless Eventing architecture which uses brokers, sources and triggers to build a scalable, fully decoupled system.
+
+Once a review is moderated and marked as suitable, this is persisted in the Globex Product Review DB (PostgreSql) to be then show on the Products page. The Sentimenet Analysis score is persisted within a Time Series DB (InfluxDB in this case) then used to build a Dashboard (Grafana) to view how well a particular category of products is performing over different time period
+
+image::solution-overview.png[]

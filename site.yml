@@ -4,7 +4,7 @@ runtime:
 site:
   title: Solution Patterns for Cloud Native Architectures
   url: https://redhat-solution-patterns.github.io/solution-patterns/
-  start_page: solution-pattern-template::index.adoc
+  start_page: solution-pattern-sentiment-analysis::index.adoc
 
 content:
   sources:
@@ -13,7 +13,7 @@ content:
 
 asciidoc:
   attributes:
-    release-version: master
+    release-version: main
     page-pagination: true
   extensions:
     - ./lib/tab-block.js

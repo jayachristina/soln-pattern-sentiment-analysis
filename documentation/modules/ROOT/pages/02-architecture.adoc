@@ -4,28 +4,39 @@
 :doctype: book
 
 = Architecture 
-
 Introduction for the architecture of this solution pattern.
 
+
 == Common Challenges 
+Globex wants to be able to both moderate and analyse product reviews submitted via their mobile and web applications. Building a system to which can respond to customer reviews quickly is very critical to Globex because this would keep them ahead of their competitors. 
+
+They are aware that customer reviews is a true reflection of how they are perceived amongst competition, and so getting a clear picture of the sentiment behind the reviews is critical. They would also like to know how this varies over a period of time - even within the same product category. This could help them understand how new products are being received. 
+
+It is also important to moderate the reviews for abusive language, unwanted text and also ensure privacy and security of personal data. There is a need to moderate each of the reviews for language and other areas before they are published to the eCommerce application.
+
+Adoption of a streaming techniology such as Kafka becomes important to manage multiple systens which would consume the data from the data stream as events. But not all teams are well versed with using Kafka as a data stream. And this could potentially slowdown the implementation of features. The events generated and consumed will need to be monitored and measured, with a possibility of even securing access data streaming platform
 
 [#tech_stack]
 == Technology Stack
 
 // Change links and text here as you see fit.
 * https://www.redhat.com/en/technologies/cloud-computing/openshift[Red Hat OpenShift]
+** OpenShift Serverless
+** Grafana
 * Red Hat Application Foundation
 ** https://access.redhat.com/products/quarkus[Quarkus]
-** https://www.redhat.com/en/technologies/cloud-computing/openshift/openshift-streams-for-apache-kafka[Kafka Streams]
-* Other:
-** https://www.postgresql.org/[PostgreSQL database]
-** https://helm.sh/[Helm]
+** https://developers.redhat.com/topics/kafka-kubernetes[AMQ Kafka Streams]
+* Others
+** https://www.influxdata.com[InfluxDB timeseries database^]
+** https://helm.sh/[Helm^]
+** https://www.postgresql.org/[PostgreSQL database^]
 
 
 [#in_depth]
 == An in-depth look at the solution's architecture
 
-Technical description including all or some of the following: architecture ir ed diagrams. In-depth details of the decisions made and solutions used. Description of each service and what it is used for. Description of any integration.
+* Event Driven Architecture
+Knative Eventing
 
 [#more_tech]
 == About the Technology Stack

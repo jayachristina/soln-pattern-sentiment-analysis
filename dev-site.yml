@@ -2,9 +2,9 @@ runtime:
   cache_dir: ./.cache/antora
 
 site:
-  title: Solution Patterns for Cloud Native Architectures (Dev Mode)  
+  title: Real-time Sentiment Analysis with Kafka and AIML with Event-Driven Architeture
   url: http://localhost:3000/
-  start_page: solution-pattern-template::index.adoc
+  start_page: solution-pattern-sentiment-analysis::index.adoc
 
 content:
   sources:
@@ -13,7 +13,7 @@ content:
       start_path: documentation
 asciidoc:
   attributes:
-    title: Red Hat Solution Patterns (Dev Mode)
+    title: Real-time Sentiment Analysis with Kafka and AIML with Event-Driven Architecture
   extensions:
     - ./lib/remote-include-processor.js
     - ./lib/tab-block.js
