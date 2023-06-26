@@ -35,10 +35,37 @@ Adoption of a streaming techniology such as Kafka becomes important to manage mu
 [#in_depth]
 == An in-depth look at the solution's architecture
 
-* Event Driven Architecture
-Knative Eventing
+Intelligent Applications (AI) based on an Event Driven Architecture has been used build this solution. The following diagram represents the building blocks of this solution. 
+
+image::architecture-blocks.png[]
+
 
 [#more_tech]
 == About the Technology Stack
 
-If you want to include more details about the tech stack you used, this is the place.
+=== Intelligent Applications with Red Hat OpenShift Data Science
+For building the *Sentiment Analysis* and *Reviews Moderation* Intelligent Applications based on AIML, the solution leverages https://www.redhat.com/en/technologies/cloud-computing/openshift/openshift-data-science[Red Hat OpenShift Data Science^] platform. With OpenShift Data Science, the organizations can
+
+* Accelerate the delivery of intelligent applications and reduce time to market
+* Data scientists can rapidly develop, train, test, and deploy the models with an on-demand infrastructure
+* Deploy models to hybrid cloud environments, gaining the flexibility of running workloads wherever you need them
+
+=== Event Driven Architecture with OpenShift Serverless 
+
+OpenShift Serverless, bbased on the upstream Knative project, helps with event-driven computing amongst other usecases. The Eventing functionality provides the capability to build Event-Driven applications that can connect to and from a number of systems. In this solution, all the services emit Cloud Events with specific `ce-type` and `ce-source`. These events are then fed into the Knative Broker. The associated triggers will invoke the right knative service to respond to the right event. Building all this is super easy using CRDs.
+
+==== Cloud Events
+With Knative Eventing, all the systems talk to each other using the https://cloudevents.io/[Cloud Events^] which is a specification for describing event data in a common way. Cloud Events makes it easy for various actors (services, systems etc) interact with each other in a standard way. Further more, this can be used for adopting Observability using Open Tracing.
+
+image::broker-trigger.png[width=30%]
+
+=== Realtime Dashboard for Sentiment Analysis: InfluxDB and Grafana
+Once the review is processed by the *Sentiment Analysis* service, the data is streamed into Kafka real-time. Another knative Service then consumes this data and pushed into InfluxDB. Grafana Dashboards can be coonfigured to read from this TimeSeries DB and plot the sentiment analysis score on a dashboard.
+
+image::grafana-dashboard.png[]
+
+
+=== Reviews moderation
+The Reviews also pass through the *Reviews Moderation* Intelligent Application which filters the reviews for abusive or foul language. Only the reviews which are moderated is then persisted in the database and then be displayed on the product page.
+
+image::moderated-reviews.png[]
