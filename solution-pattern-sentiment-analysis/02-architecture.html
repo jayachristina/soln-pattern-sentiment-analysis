@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Solution Pattern: Name Template :: Solution Patterns for Cloud Native Architectures</title>
+    <link rel="canonical" href="https://redhat-solution-patterns.github.io/solution-patterns/solution-pattern-sentiment-analysis/02-architecture.html">
+    <link rel="prev" href="index.html#_content_overview">
+    <link rel="next" href="03-demo.html">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../_/css/site.css">
+<link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://redhat-solution-patterns.github.io/" target="_blank"><img
+          src="../_/img/logo.png" height="40px" alt="Cloud Native Architecture Solution Patterns"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="https://redhat-solution-patterns.github.io/solution-patterns">Solution Patterns for Cloud Native Architectures</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Solution Patterns</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://red.ht/enhance-with-cdc">Adopt Change Data Capture for <br/>stack modernization</a>
+            <a class="navbar-item" href="https://red.ht/enhance-with-eda">Enhancing Applications with Application Services</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Other</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://redhat-gitops-patterns.io/">GitOps Solution Patterns</a>
+            <a class="navbar-item" href="https://hybrid-cloud-patterns.io/">Hybrid Cloud Solution Patterns</a>
+          </div>
+        </div>
+
+        <a class="navbar-item" target="_blank" href="https://www.redhat.com/en/products/middleware">Red Hat Application Services</a>
+        <a class="navbar-item" target="_blank" href="https://developers.redhat.com/middleware">Learn more</a>
+
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="solution-pattern-sentiment-analysis" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html" class=" query-params-link">Sentiment Analysis</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">1. Home page</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html#use-cases">1.1 Use cases</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-pattern.html#_the_story_behind_this_solution_pattern">1.2 The story behind this solution pattern</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-pattern.html#_the_solution">1.3 The solution</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html#_content_overview">1.4 Content Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html#_content_overview">1.5 Explore more solution patterns</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="02-architecture.html">2. Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#tech_stack">2.1. Technology stack</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#in_depth">2.2. An in-depth look at the solution&#8217;s architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#tech_stack">2.3. More about the technology stack</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="03-demo.html">3. See the Solution in Action</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="03-demo.html#_demonstration">3.1. Demonstration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="03-demo.html#_run_the_demonstration">3.2. Run this demonstration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-demo.html#_before_getting_started">3.3. Pre-requisites</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-demo.html#_installing_the_demo">3.4. Installing the demo</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-demo.html#_walkthrough_guide">3.5. Walkthrough guide</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="04-workshop.html">4. Workshop</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="04-workshop.html#_installing_the_workshop_environment">4.1. Installing the workshop environment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text">xref:04-workshop.adoc#_before_getting_started[4.2. Pre-requisites</span>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="04-workshop.html#install_wksp_details">4.3. Installing the environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-workshop.html#deliver_wksp">4.4. Delivering the workshop</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://redhat-solution-patterns.github.io/">5. Other Red Hat Solution Patterns</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Sentiment Analysis</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Sentiment Analysis</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Sentiment Analysis</a></li>
+    <li><a href="02-architecture.html">2. Architecture</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/redhat-solution-patterns/solution-pattern-sentiment-analysis/edit/main/documentation/modules/ROOT/pages/02-architecture.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Solution Pattern: Name Template</h1>
+<h1 id="_architecture" class="sect0"><a class="anchor" href="#_architecture"></a><a class="link" href="#_architecture">Architecture</a></h1>
+<div class="openblock partintro">
+<div class="content">
+Introduction for the architecture of this solution pattern.
+</div>
+</div>
+<div class="sect1">
+<h2 id="_common_challenges"><a class="anchor" href="#_common_challenges"></a><a class="link" href="#_common_challenges">1. Common Challenges</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Globex wants to be able to both moderate and analyse product reviews submitted via their mobile and web applications. Building a system to which can respond to customer reviews quickly is very critical to Globex because this would keep them ahead of their competitors.</p>
+</div>
+<div class="paragraph">
+<p>They are aware that customer reviews is a true reflection of how they are perceived amongst competition, and so getting a clear picture of the sentiment behind the reviews is critical. They would also like to know how this varies over a period of time - even within the same product category. This could help them understand how new products are being received.</p>
+</div>
+<div class="paragraph">
+<p>It is also important to moderate the reviews for abusive language, unwanted text and also ensure privacy and security of personal data. There is a need to moderate each of the reviews for language and other areas before they are published to the eCommerce application.</p>
+</div>
+<div class="paragraph">
+<p>Adoption of a streaming techniology such as Kafka becomes important to manage multiple systens which would consume the data from the data stream as events. But not all teams are well versed with using Kafka as a data stream. And this could potentially slowdown the implementation of features. The events generated and consumed will need to be monitored and measured, with a possibility of even securing access data streaming platform</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tech_stack"><a class="anchor" href="#tech_stack"></a><a class="link" href="#tech_stack">2. Technology Stack</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.redhat.com/en/technologies/cloud-computing/openshift">Red Hat OpenShift</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>OpenShift Serverless</p>
+</li>
+<li>
+<p>Grafana</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Red Hat Application Foundation</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://access.redhat.com/products/quarkus">Quarkus</a></p>
+</li>
+<li>
+<p><a href="https://developers.redhat.com/topics/kafka-kubernetes">AMQ Kafka Streams</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Others</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.influxdata.com" target="_blank" rel="noopener">InfluxDB timeseries database</a></p>
+</li>
+<li>
+<p><a href="https://helm.sh/" target="_blank" rel="noopener">Helm</a></p>
+</li>
+<li>
+<p><a href="https://www.postgresql.org/" target="_blank" rel="noopener">PostgreSQL database</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="in_depth"><a class="anchor" href="#in_depth"></a><a class="link" href="#in_depth">3. An in-depth look at the solution&#8217;s architecture</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Intelligent Applications (AI) based on an Event Driven Architecture has been used build this solution. The following diagram represents the building blocks of this solution.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/architecture-blocks.png" alt="architecture blocks">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="more_tech"><a class="anchor" href="#more_tech"></a><a class="link" href="#more_tech">4. About the Technology Stack</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_intelligent_applications_with_red_hat_openshift_data_science"><a class="anchor" href="#_intelligent_applications_with_red_hat_openshift_data_science"></a><a class="link" href="#_intelligent_applications_with_red_hat_openshift_data_science">4.1. Intelligent Applications with Red Hat OpenShift Data Science</a></h3>
+<div class="paragraph">
+<p>For building the <strong>Sentiment Analysis</strong> and <strong>Reviews Moderation</strong> Intelligent Applications based on AIML, the solution leverages <a href="https://www.redhat.com/en/technologies/cloud-computing/openshift/openshift-data-science" target="_blank" rel="noopener">Red Hat OpenShift Data Science</a> platform. With OpenShift Data Science, the organizations can</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Accelerate the delivery of intelligent applications and reduce time to market</p>
+</li>
+<li>
+<p>Data scientists can rapidly develop, train, test, and deploy the models with an on-demand infrastructure</p>
+</li>
+<li>
+<p>Deploy models to hybrid cloud environments, gaining the flexibility of running workloads wherever you need them</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_event_driven_architecture_with_openshift_serverless"><a class="anchor" href="#_event_driven_architecture_with_openshift_serverless"></a><a class="link" href="#_event_driven_architecture_with_openshift_serverless">4.2. Event Driven Architecture with OpenShift Serverless</a></h3>
+<div class="paragraph">
+<p>OpenShift Serverless, bbased on the upstream Knative project, helps with event-driven computing amongst other usecases. The Eventing functionality provides the capability to build Event-Driven applications that can connect to and from a number of systems. In this solution, all the services emit Cloud Events with specific <code>ce-type</code> and <code>ce-source</code>. These events are then fed into the Knative Broker. The associated triggers will invoke the right knative service to respond to the right event. Building all this is super easy using CRDs.</p>
+</div>
+<div class="sect3">
+<h4 id="_cloud_events"><a class="anchor" href="#_cloud_events"></a><a class="link" href="#_cloud_events">4.2.1. Cloud Events</a></h4>
+<div class="paragraph">
+<p>With Knative Eventing, all the systems talk to each other using the <a href="https://cloudevents.io/" target="_blank" rel="noopener">Cloud Events</a> which is a specification for describing event data in a common way. Cloud Events makes it easy for various actors (services, systems etc) interact with each other in a standard way. Further more, this can be used for adopting Observability using Open Tracing.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/broker-trigger.png" alt="broker trigger" width="30%">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_realtime_dashboard_for_sentiment_analysis_influxdb_and_grafana"><a class="anchor" href="#_realtime_dashboard_for_sentiment_analysis_influxdb_and_grafana"></a><a class="link" href="#_realtime_dashboard_for_sentiment_analysis_influxdb_and_grafana">4.3. Realtime Dashboard for Sentiment Analysis: InfluxDB and Grafana</a></h3>
+<div class="paragraph">
+<p>Once the review is processed by the <strong>Sentiment Analysis</strong> service, the data is streamed into Kafka real-time. Another knative Service then consumes this data and pushed into InfluxDB. Grafana Dashboards can be coonfigured to read from this TimeSeries DB and plot the sentiment analysis score on a dashboard.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/grafana-dashboard.png" alt="grafana dashboard">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_reviews_moderation"><a class="anchor" href="#_reviews_moderation"></a><a class="link" href="#_reviews_moderation">4.4. Reviews moderation</a></h3>
+<div class="paragraph">
+<p>The Reviews also pass through the <strong>Reviews Moderation</strong> Intelligent Application which filters the reviews for abusive or foul language. Only the reviews which are moderated is then persisted in the database and then be displayed on the product page.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/moderated-reviews.png" alt="moderated reviews">
+</div>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="index.html#_content_overview" class="query-params-link">1.4 Content Overview</a></span>
+  <span class="next"><a href="03-demo.html" class="query-params-link">3. See the Solution in Action</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img
+          src="../_/img/app-services-logo.png" height="40px" alt="Cloud Native Architecture Solution Patterns"  href="https://redhat.com" ></a>
+</footer><script src="../_/js/vendor/clipboard.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
