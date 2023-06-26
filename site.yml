@@ -3,7 +3,7 @@ runtime:
 
 site:
   title: Solution Patterns for Cloud Native Architectures
-  url: https://redhat-solution-patterns.github.io/solution-patterns/
+  url: https://redhat-solution-patterns.github.io/solution-pattern-sentiment-analysis/
   start_page: solution-pattern-sentiment-analysis::index.adoc
 
 content:
