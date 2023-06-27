@@ -130,6 +130,8 @@ There are 4 namespaces which are used for this Solution Pattern
 === Login to the Globex Webapplication
 
 * Navigate the *sentiment-analysis* namespace and look for the *globex-web-reviews* deployment in the Developers perspective. 
++
+image:sentiment-analysis.png[] 
 * Launch the globex-web-reviews app by clicking on the "launch arrow". 
 ** Alternatively the route can be fetched by running this command from your command line +
 *oc get route/globex-web-reviews -n sentiment-analysis*
@@ -172,6 +174,12 @@ image:moderated-review.png[]
 
 === Sentiment Analysis scenario
 * Remember the grafana link that you made a note of? Now is a good time to navigate to that URL. Login using *admin/graphsRcool*
+** In case you can't find it, don't fret :) We got a plan B for you
+** From the *Administrator view*, go to *influxdb-project* namespace. 
+** Navigate to *Networking > Services > grafana*. 
+** Navigate to the *Location* displayed under *Service Routing > Service address*
++
+image:grafana-url.png[]
 * Click on left-hand menu, and click on *Dashboards* Now click on the *General* folder displayed
 ** This will show a link to *GLOBEX Sentiment Analysis Dashboard*. Click on this to launch the Dashboard
 +
