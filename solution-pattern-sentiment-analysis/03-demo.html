@@ -397,7 +397,7 @@ a9da52f7e7cab4b3d96e9fe1249e9ebf-309934634.eu-west-1.elb.amazonaws.com</code></p
 <div class="ulist">
 <ul>
 <li>
-<p>Red Hat SSO based on Keycloak which manages the user login. You can find the password for the <code>admin</code> user within the Secret &lt;TBC&gt; within this namespace</p>
+<p>Red Hat SSO based on Keycloak which manages the user login. You can find the password for the <code>admin</code> user within the Secret <strong>credential-rhsso</strong> within the <strong>rhsso</strong> namespace</p>
 </li>
 </ul>
 </div>
@@ -410,7 +410,7 @@ a9da52f7e7cab4b3d96e9fe1249e9ebf-309934634.eu-west-1.elb.amazonaws.com</code></p
 <div class="ulist">
 <ul>
 <li>
-<p>Navigate the <code>sentiment-analysis</code> namespace and look for the <strong>globex-web-reviews</strong> deployment in the Developers perspective.</p>
+<p>Navigate the <strong>sentiment-analysis</strong> namespace and look for the <strong>globex-web-reviews</strong> deployment in the Developers perspective.</p>
 </li>
 <li>
 <p>Launch the globex-web-reviews app by clicking on the "launch arrow".</p>
@@ -465,7 +465,7 @@ a9da52f7e7cab4b3d96e9fe1249e9ebf-309934634.eu-west-1.elb.amazonaws.com</code></p
 </div>
 </li>
 <li>
-<p>Refresh the page after a couple of seconds, and you if your review was moderated, the review would appear on the page</p>
+<p>Wait for a fewseconds and the review would appear on the page - if your review was moderated as acceptable.</p>
 </li>
 <li>
 <p>If you are adventurous, try one with abusive langage - not that we encourage this behaviour :) - but let&#8217;s put the system through its paces</p>
@@ -534,13 +534,16 @@ a9da52f7e7cab4b3d96e9fe1249e9ebf-309934634.eu-west-1.elb.amazonaws.com</code></p
 <ul>
 <li>
 <p>Remember the grafana link that you made a note of? Now is a good time to navigate to that URL. Login using <strong>admin/graphsRcool</strong></p>
+</li>
+<li>
+<p>Click on left-hand menu, and click on <strong>Dashboards</strong> Now click on the <strong>General</strong> folder displayed</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Don&#8217;t have the link to the Grafana Dashboard? Fret not ;).</p>
-</li>
-<li>
-<p>Navigate to the influxdb-project namespace and then to the <code>grafana-creds</code> secret. Click on Reveal values and voila! There you have the URL! We are helpful that way :)</p>
+<p>This will show a link to <strong>GLOBEX Sentiment Analysis Dashboard</strong>. Click on this to launch the Dashboard</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/grafana-landing.png" alt="grafana landing"></span></p>
+</div>
 </li>
 </ul>
 </div>
@@ -551,16 +554,30 @@ a9da52f7e7cab4b3d96e9fe1249e9ebf-309934634.eu-west-1.elb.amazonaws.com</code></p
 </ul>
 </div>
 <div class="paragraph">
-<p>You will see a couple of data there from the reviews you had submitted in the previous step - nothing much to talk about! Yet&#8230;&#8203;..<br>
-Let&#8217;s use a simulator to submit a number of reviews to see some serious stuff!!  \m/</p>
+<p>You will see a couple of data there from the reviews you had submitted in the previous step - nothing much to talk about! Yet&#8230;&#8203;..<br></p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s use a simulator to submit a number of reviews to see some serious stuff!!  \m/</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Navigate back to the <code>sentiment-analysis</code> namespace and look for the <code>reviews-simulator</code> deployment and launch it. This is deployed as a knative services with zero replica. So you can see a pod getting created</p>
+<p>Navigate back to the <code>sentiment-analysis</code> namespace and look for the <code>reviews-simulator</code> deployment and launch it.</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/reviews-simulator.png" alt="reviews simulator" width="30%"></span></p>
+</div>
 </li>
 <li>
-<p>Click on the <strong>Try it out</strong> button, choose the <strong>Clothing</strong> option, and click <strong>Execute</strong>. A number of random reviews are generated for you.</p>
+<p>This is deployed as a knative services with zero replica. So you can see a pod getting created as soon as you launch it.</p>
+</li>
+<li>
+<p>Click on the <strong>POST</strong>, and then the <strong>Try it out</strong> button.</p>
+</li>
+<li>
+<p>Choose the <strong>Clothing Catalogue</strong> option, and click <strong>Execute</strong>. A number of random reviews are generated for you.</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/simulate-clothing-reviews.png" alt="simulate clothing reviews"></span></p>
+</div>
 </li>
 <li>
 <p>Go ahead and try out the <strong>Bags</strong> option as well!</p>
@@ -571,11 +588,23 @@ Let&#8217;s use a simulator to submit a number of reviews to see some serious st
 </ul>
 </div>
 <div class="paragraph">
-<p>Alright.. Let&#8217;s go check out the Grafana Dashboard.. and you will a doughnut shaped chart right on top of the page showing the breakup of the overall sentiment across Globex.</p>
+<p>Alright.. Let&#8217;s go check out the Grafana Dashboard..</p>
 </div>
-<div class="paragraph">
-<p>Right below this, you will also see the charts showing the sentiment analysis breakup for Clothing and Bags. You can duplicate these charts with other Catalgues as well. Here is a list of all of the possible catalogues</p>
+<div class="ulist">
+<ul>
+<li>
+<p>You can view a doughnut shaped chart right on top of the page showing the breakup of the overall sentiment across Globex.</p>
+</li>
+<li>
+<p>Right below this, you will also see the charts showing the sentiment analysis breakup for Clothing and Bags.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/clothing-dashboard.png" alt="clothing dashboard">
 </div>
+</div>
+</li>
+<li>
+<p>You can duplicate these charts with other Catalgues as well. Here is a list of all of the possible catalogues</p>
 <div class="ulist">
 <ul>
 <li>
@@ -601,8 +630,20 @@ Let&#8217;s use a simulator to submit a number of reviews to see some serious st
 </li>
 </ul>
 </div>
+</li>
+<li>
+<p>You can generate more reviews for the <strong>Bags Catalogue</strong> using the simulator to view more data on the dashboard.</p>
 <div class="paragraph">
-<p>You can generate more reviews using the simulator to view more data on the dashboard.</p>
+<p><span class="image"><img src="_images/bag-dashboard.png" alt="bag dashboard"></span></p>
+</div>
+</li>
+<li>
+<p>You can also view the Tabular Data of the Bags and Clothing catalogues</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/tabular-data.png" alt="tabular data"></span></p>
+</div>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Well done! You have come to the end of the demo. You can have a look at all this code here: <a href="https://github.com/rh-soln-pattern-sentiment-analysis" class="bare">https://github.com/rh-soln-pattern-sentiment-analysis</a></p>
