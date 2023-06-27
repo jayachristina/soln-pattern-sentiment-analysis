@@ -125,11 +125,11 @@ There are 4 namespaces which are used for this Solution Pattern
 ** Red Hat AMQ Streams (Apache Kafka) 
 ** Kafdrop (a Kafka topic visualization tool)
 * *rhsso*:
-** Red Hat SSO based on Keycloak which manages the user login. You can find the password for the `admin` user within the Secret <TBC> within this namespace
+** Red Hat SSO based on Keycloak which manages the user login. You can find the password for the `admin` user within the Secret *credential-rhsso* within the *rhsso* namespace
 
 === Login to the Globex Webapplication
 
-* Navigate the `sentiment-analysis` namespace and look for the *globex-web-reviews* deployment in the Developers perspective. 
+* Navigate the *sentiment-analysis* namespace and look for the *globex-web-reviews* deployment in the Developers perspective. 
 * Launch the globex-web-reviews app by clicking on the "launch arrow". 
 ** Alternatively the route can be fetched by running this command from your command line +
 *oc get route/globex-web-reviews -n sentiment-analysis*
@@ -149,7 +149,7 @@ image:enter-review.png[]
 * You will see a notification on the screen that the review has been submitted
 +
 image:view-review.png[]
-* Refresh the page after a couple of seconds, and you if your review was moderated, the review would appear on the page
+* Wait for a fewseconds and the review would appear on the page - if your review was moderated as acceptable.
 * If you are adventurous, try one with abusive langage - not that we encourage this behaviour :) - but let's put the system through its paces
 ** You would notice that this review (ideally) will not appear on the screen. 
 
@@ -172,33 +172,49 @@ image:moderated-review.png[]
 
 === Sentiment Analysis scenario
 * Remember the grafana link that you made a note of? Now is a good time to navigate to that URL. Login using *admin/graphsRcool*
-** Don't have the link to the Grafana Dashboard? Fret not ;).
-** Navigate to the influxdb-project namespace and then to the `grafana-creds` secret. Click on Reveal values and voila! There you have the URL! We are helpful that way :)
+* Click on left-hand menu, and click on *Dashboards* Now click on the *General* folder displayed
+** This will show a link to *GLOBEX Sentiment Analysis Dashboard*. Click on this to launch the Dashboard
++
+image:grafana-landing.png[]
 * Navigate to the Globex Sentiment Analysis Dashboard
 
 You will see a couple of data there from the reviews you had submitted in the previous step - nothing much to talk about! Yet..... +
+
 Let's use a simulator to submit a number of reviews to see some serious stuff!!  \m/
 
-* Navigate back to the `sentiment-analysis` namespace and look for the `reviews-simulator` deployment and launch it. This is deployed as a knative services with zero replica. So you can see a pod getting created
-* Click on the *Try it out* button, choose the *Clothing* option, and click *Execute*. A number of random reviews are generated for you.
+* Navigate back to the `sentiment-analysis` namespace and look for the `reviews-simulator` deployment and launch it. 
++
+image:reviews-simulator.png[width=30%]
+* This is deployed as a knative services with zero replica. So you can see a pod getting created as soon as you launch it.
+* Click on the *POST*, and then the *Try it out* button.
+* Choose the *Clothing Catalogue* option, and click *Execute*. A number of random reviews are generated for you.
++
+image:simulate-clothing-reviews.png[]
 * Go ahead and try out the *Bags* option as well!
 * Give it a go a few more times maybe
 
 
-Alright.. Let's go check out the Grafana Dashboard.. and you will a doughnut shaped chart right on top of the page showing the breakup of the overall sentiment across Globex. 
+Alright.. Let's go check out the Grafana Dashboard.. 
 
-Right below this, you will also see the charts showing the sentiment analysis breakup for Clothing and Bags. You can duplicate these charts with other Catalgues as well. Here is a list of all of the possible catalogues 
+* You can view a doughnut shaped chart right on top of the page showing the breakup of the overall sentiment across Globex. 
+* Right below this, you will also see the charts showing the sentiment analysis breakup for Clothing and Bags. 
++
+image::clothing-dashboard.png[] 
+* You can duplicate these charts with other Catalgues as well. Here is a list of all of the possible catalogues 
+** clothing
+** bags
+** utensils
+** office supplies
+** fashion accessory
+** electronics
+** sports equipment
 
-* clothing
-* bags
-* utensils
-* office supplies
-* fashion accessory
-* electronics
-* sports equipment
-
-You can generate more reviews using the simulator to view more data on the dashboard.
-
+* You can generate more reviews for the *Bags Catalogue* using the simulator to view more data on the dashboard.
++
+image:bag-dashboard.png[]
+* You can also view the Tabular Data of the Bags and Clothing catalogues
++
+image:tabular-data.png[] 
 
 Well done! You have come to the end of the demo. You can have a look at all this code here: https://github.com/rh-soln-pattern-sentiment-analysis
 
