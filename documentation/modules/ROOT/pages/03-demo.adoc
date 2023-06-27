@@ -5,24 +5,169 @@
 
 = See the Solution in Action
 
-== Demonstration
+== Setup the Solution
 
-Include here content related to potential existing demos: blogs, articles, recorded videos, walkthrough guides, tutorials.
+To provision the demo you will perform the following steps - each of which are explained in detail in the next sections:
 
-[#demo-video]
-=== Watch a demonstration
+* Gain access to Red Hat OpenShift. This solution pattern has been tested on https://docs.openshift.com/container-platform/4.13/welcome/index.html[OpenShift 4.13^]
+* Ensure you have the toold `oc` and `ansible` installed in your local environment such as your laptop
+* Access the OpenShift cluster with cluster-admin privileges
+* Log in to OpenShift with `cluster-admin` role via cli
+* Run the Ansible playbook 
+* Run a  bunch of scripts to deploy the Solution Pattern in your OpenShift cluster
 
-TBC
-
-Next, you can learn how to walkthrough this demo.
-
-== Run the demonstration
 
 === Before getting started
+Here is the list of tools you need in your machine to so you can use the automated installation.
+
+* https://docs.openshift.com/container-platform/4.13/cli_reference/openshift_cli/getting-started-cli.html[OpenShift CLI (oc client)^]
+* https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html[Ansible CLI ^]
+** https://docs.ansible.com/ansible/latest/collections/kubernetes/core/k8s_module.html[Ansible kubernetes.core module^]
+
+To check if you have the cli tools, you can open your terminal and use following commands:
+
+[.console-input]
+[source,shell script]
+----
+oc version #openshift cli client
+ansible --version
+ansible-galaxy --version
+ansible-galaxy collection list #the list should include kubernetes.core
+----
+
+If you can't see `kubernetes.core` collection listed, you can install it with `ansible-galaxy`:
+
+[.console-input]
+[source,shell script]
+----
+ansible-galaxy collection install kubernetes.core
+----
 
 
 === Installing the demo
-Installation guide and basic test of the demo installation if needed
 
-=== Walkthrough guide
-How to run through the demo
+* Clone the ansible scripts as follows in an appropriate folder in your local environment
+
+[.console-input]
+[source,shell script]
+----
+git clone https://github.com/rh-soln-pattern-sentiment-analysis/ansible
+----
+* Navigate to the `ansible` folder
+
+[.console-input]
+[source,shell script]
+----
+cd ansible
+----
+
+* Run the ansible playbook as show below
+
+[.console-input]
+[source,shell script]
+----
+ansible-playbook playbooks/install.yml -e"ACTION=provision"
+----
+
+* This ansible playbook is till work-in-progress, so you need to run some scripts to complete installation. Once the ansible playbook is all setup, this step will be simplified.
+** You will need to clone another git repo. So navigate away from the `ansible` folder
+**  Clone the script repo
++
+[.console-input]
+[source,shell script]
+----
+git clone  https://github.com/rh-soln-pattern-sentiment-analysis/deployment
+----
+
+** navigate to right folder, and run the script
++
+[.console-input]
+[source,shell script]
+----
+
+cd deployment/post-ansible-install
+./post-ansible-install.sh
+----
+** This script will display the Grafana Dashboard URL at the end of execution along with the username/password. Make note of this
++
+[source,shell script]
+----
+This is the grafana route
+a9da52f7e7cab4b3d96e9fe1249e9ebf-309934634.eu-west-1.elb.amazonaws.com
+----
+
+
+That's it! You are set to try out this Solution Pattern! ｡◕‿◕｡
+
+
+== Walkthrough guide
+
+=== Explore the deployment on Red Hat OpenShift
+There are 4 namespaces which are used for this Solution Pattern
+
+* *sentiment-analysis*: 
+** most of the microservices
+** knative services, knative brokers, and  knative triggers
+* *influxdb-project*: 
+** InfluxDB - a time series database 
+** Python based connector which reads from Kafka and pushes the content into InfluxDB  
+** Grafana dashboard
+* *globex*: A number of fundamental microservices and database of the fictitious retail customer Globex, which are used in the our application, but aren't really impacting the Sentiment Analysis solution pattern
+* *globex-mw*: 
+** Red Hat AMQ Streams (Apache Kafka) 
+** Kafdrop (a Kafka topic visualization tool)
+* *rhsso*:
+** Red Hat SSO based on Keycloak which manages the user login. You can find the password for the `admin` user within the Secret <TBC> within this namespace
+
+=== Login to the Globex Webapplication
+
+* Navigate the `sentient-analysis` namespace and look for the globex-web-reviews deployment and launch this by clicking on the "launch arrow". Alternatively the route can be fetched by running `oc get route/globex-web-reviews` command from your command line
+* A number of users have been already setup for you
+** Choose any of these as login user names: *asilva*, *mmiller*, *asanders*, *cjones* or *pwong*
+** All users have  the same password:  *openshift*
+* Once you login, you can navigate to the Cool Store menu and click on any of the products to view the product details.
+
+=== Review Moderation scenario
+* Type in a review comment -  which is socially acceptable and not abusive - and submit the review
+* Refresh the page after a couple of seconds, and you if your review was moderated, the review would appear on the page
+* If you are adventurous, try one with abusive langage - not that we encourage this behaviour :) - but let's put the system through its paces
+** You would notice that this review (ideally) will not appear on the screen. 
+
+Let us now trace the flow of the reviews across the various systems
+<TBC>
+
+=== Sentiment Analysis scenario
+* Remember the grafana link that you made a note of? Now is a good time to navigate to that URL. Login using *admin/graphsRcool*
+** Don't have the link to the Grafana Dashboard? Fret not ;).
+** Navigate to the influxdb-project namespace and then to the `grafana-creds` secret. Click on Reveal values and voila! There you have the URL! We are helpful that way :)
+* Navigate to the Globex Sentiment Analysis Dashboard
+
+You will see a couple of data there from the reviews you had submitted in the previous step - nothing much to talk about! Yet..... +
+Let's use a simulator to submit a number of reviews to see some serious stuff!!  \m/
+
+* Navigate back to the `sentiment-analysis` namespace and look for the `reviews-simulator` deployment and launch it. This is deployed as a knative services with zero replica. So you can see a pod getting created
+* Click on the *Try it out* button, choose the *Clothing* option, and click *Execute*. A number of random reviews are generated for you.
+* Go ahead and try out the *Bags* option as well!
+* Give it a go a few more times maybe
+
+
+Alright.. Let's go check out the Grafana Dashboard.. and you will a doughnut shaped chart right on top of the page showing the breakup of the overall sentiment across Globex. 
+
+Right below this, you will also see the charts showing the sentiment analysis breakup for Clothing and Bags. You can duplicate these charts with other Catalgues as well. Here is a list of all of the possible catalogues 
+
+* clothing
+* bags
+* utensils
+* office supplies
+* fashion accessory
+* electronics
+* sports equipment
+
+You can generate more reviews using the simulator to view more data on the dashboard.
+
+
+Well done! You have come to the end of the demo. You can have a look at all this code here: https://github.com/rh-soln-pattern-sentiment-analysis
+
+Errors? Issues? Feel free to submit questions or file a bug.  And you are welcome to contribute too ツ
+
+All the images are here: https://quay.io/organization/globex-sentiment-analysis

@@ -11,7 +11,7 @@
 ** xref:02-architecture.adoc#tech_stack[{module}.{counter:submodule2}. More about the technology stack]
 
 * xref:03-demo.adoc[{counter:module}. See the Solution in Action]
-** xref:03-demo.adoc#_demonstration[{module}.{counter:submodule3}. Demonstration]
+#** xref:03-demo.adoc#_demonstration[{module}.{counter:submodule3}. Demonstration]
 ** xref:03-demo.adoc#_run_the_demonstration[{module}.{counter:submodule3}. Run this demonstration]
 *** xref:03-demo.adoc#_before_getting_started[{module}.{counter:submodule3}. Pre-requisites]
 *** xref:03-demo.adoc#_installing_the_demo[{module}.{counter:submodule3}. Installing the demo]
