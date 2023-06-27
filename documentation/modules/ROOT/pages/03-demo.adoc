@@ -46,6 +46,14 @@ ansible-galaxy collection install kubernetes.core
 
 === Installing the demo
 
+* Login to your OpenShift cluser as cluster-admin (because a number of operators will need to be installed)
+* Click on the username on the top right hand, and then click on *Copy login command*. This will open another tab and you will need to login again
+* Click on *Display token* link, and copy the command under  *Log in with this token*. This will look like this 
+[source,shell script]
+----
+oc login --token=<token> --server=<server>
+----
+
 * Clone the ansible scripts as follows in an appropriate folder in your local environment
 
 [.console-input]
@@ -61,7 +69,7 @@ git clone https://github.com/rh-soln-pattern-sentiment-analysis/ansible
 cd ansible
 ----
 
-* Run the ansible playbook as show below
+* Run the ansible playbook as show below. This will take a few minutes to complete. Ensure the script is deployed without errors
 
 [.console-input]
 [source,shell script]
@@ -69,7 +77,7 @@ cd ansible
 ansible-playbook playbooks/install.yml -e"ACTION=provision"
 ----
 
-* This ansible playbook is till work-in-progress, so you need to run some scripts to complete installation. Once the ansible playbook is all setup, this step will be simplified.
+* This ansible playbook is still work-in-progress, so you need to run some scripts to complete installation. Once the ansible playbook is all setup, this step will be simplified.
 ** You will need to clone another git repo. So navigate away from the `ansible` folder
 **  Clone the script repo
 +
@@ -85,8 +93,8 @@ git clone  https://github.com/rh-soln-pattern-sentiment-analysis/deployment
 [source,shell script]
 ----
 
-cd deployment/post-ansible-install
-./post-ansible-install.sh
+cd deployment
+./complete-install.sh
 ----
 ** This script will display the Grafana Dashboard URL at the end of execution along with the username/password. Make note of this
 +
@@ -121,20 +129,46 @@ There are 4 namespaces which are used for this Solution Pattern
 
 === Login to the Globex Webapplication
 
-* Navigate the `sentient-analysis` namespace and look for the globex-web-reviews deployment and launch this by clicking on the "launch arrow". Alternatively the route can be fetched by running `oc get route/globex-web-reviews` command from your command line
+* Navigate the `sentiment-analysis` namespace and look for the *globex-web-reviews* deployment in the Developers perspective. 
+* Launch the globex-web-reviews app by clicking on the "launch arrow". 
+** Alternatively the route can be fetched by running this command from your command line +
+*oc get route/globex-web-reviews -n sentiment-analysis*
++
+image:launch-globex.png[width=30%]
 * A number of users have been already setup for you
 ** Choose any of these as login user names: *asilva*, *mmiller*, *asanders*, *cjones* or *pwong*
 ** All users have  the same password:  *openshift*
-* Once you login, you can navigate to the Cool Store menu and click on any of the products to view the product details.
+* Once you login, you can navigate to the *Cool Stufff Store* from the top menubar and click on any of the products to view the product details.
++
+image:coolstuff-store.png[]
 
 === Review Moderation scenario
-* Type in a review comment -  which is socially acceptable and not abusive - and submit the review
+* Type in a review comment -  which is socially acceptable and not abusive - and submit the review. 
++
+image:enter-review.png[]
+* You will see a notification on the screen that the review has been submitted
++
+image:view-review.png[]
 * Refresh the page after a couple of seconds, and you if your review was moderated, the review would appear on the page
 * If you are adventurous, try one with abusive langage - not that we encourage this behaviour :) - but let's put the system through its paces
 ** You would notice that this review (ideally) will not appear on the screen. 
 
 Let us now trace the flow of the reviews across the various systems
-<TBC>
+
+* The review gets submitted to the *globex.reviews* kafka topic, which then gets picked up by the Intelligent App *aiml-moderate-reviews*
+** This service routes the reviews to either *reviews.moderated* topic or *reviews.denied* topic depending on whether review's languge was acceptable or not
++
+image:aiml-moderate-reviews-app.png[]
+* You can view these topics through Kafkdrop. To access Kafdrop, navigate to *globex-mw* namespace, and launch kafdrop.
+* Filter the topics with the word *review* to see a list of relevant topics
++
+image:reviews-topics.png[]
+* Click on each of the topics to see the actual messages.
+* This is the *reviews.moderated* topic. You will notic that the message is a JSON.
+** What is even more interestig is the headers of this message *ce-type* and *ce-source*
+** These headers are present because the messages are all managed as https://cloudevents.io/[Cloud Events^]. CloudEvents is a a specification for describing event data in a common way. 
++
+image:moderated-review.png[]
 
 === Sentiment Analysis scenario
 * Remember the grafana link that you made a note of? Now is a good time to navigate to that URL. Login using *admin/graphsRcool*
