@@ -240,6 +240,24 @@ ansible-galaxy collection list #the list should include kubernetes.core</code></
 <div class="ulist">
 <ul>
 <li>
+<p>Login to your OpenShift cluser as cluster-admin (because a number of operators will need to be installed)</p>
+</li>
+<li>
+<p>Click on the username on the top right hand, and then click on <strong>Copy login command</strong>. This will open another tab and you will need to login again</p>
+</li>
+<li>
+<p>Click on <strong>Display token</strong> link, and copy the command under  <strong>Log in with this token</strong>. This will look like this</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>oc login --token=&lt;token&gt; --server=&lt;server&gt;</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
 <p>Clone the ansible scripts as follows in an appropriate folder in your local environment</p>
 </li>
 </ul>
@@ -264,7 +282,7 @@ ansible-galaxy collection list #the list should include kubernetes.core</code></
 <div class="ulist">
 <ul>
 <li>
-<p>Run the ansible playbook as show below</p>
+<p>Run the ansible playbook as show below. This will take a few minutes to complete. Ensure the script is deployed without errors</p>
 </li>
 </ul>
 </div>
@@ -276,7 +294,7 @@ ansible-galaxy collection list #the list should include kubernetes.core</code></
 <div class="ulist">
 <ul>
 <li>
-<p>This ansible playbook is till work-in-progress, so you need to run some scripts to complete installation. Once the ansible playbook is all setup, this step will be simplified.</p>
+<p>This ansible playbook is still work-in-progress, so you need to run some scripts to complete installation. Once the ansible playbook is all setup, this step will be simplified.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -294,8 +312,8 @@ ansible-galaxy collection list #the list should include kubernetes.core</code></
 <p>navigate to right folder, and run the script</p>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">cd deployment/post-ansible-install
-./post-ansible-install.sh</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">cd deployment
+./complete-install.sh</code></pre>
 </div>
 </div>
 </li>
@@ -392,7 +410,21 @@ a9da52f7e7cab4b3d96e9fe1249e9ebf-309934634.eu-west-1.elb.amazonaws.com</code></p
 <div class="ulist">
 <ul>
 <li>
-<p>Navigate the <code>sentient-analysis</code> namespace and look for the globex-web-reviews deployment and launch this by clicking on the "launch arrow". Alternatively the route can be fetched by running <code>oc get route/globex-web-reviews</code> command from your command line</p>
+<p>Navigate the <code>sentiment-analysis</code> namespace and look for the <strong>globex-web-reviews</strong> deployment in the Developers perspective.</p>
+</li>
+<li>
+<p>Launch the globex-web-reviews app by clicking on the "launch arrow".</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Alternatively the route can be fetched by running this command from your command line<br>
+<strong>oc get route/globex-web-reviews -n sentiment-analysis</strong></p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/launch-globex.png" alt="launch globex" width="30%"></span></p>
+</div>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>A number of users have been already setup for you</p>
@@ -408,7 +440,10 @@ a9da52f7e7cab4b3d96e9fe1249e9ebf-309934634.eu-west-1.elb.amazonaws.com</code></p
 </div>
 </li>
 <li>
-<p>Once you login, you can navigate to the Cool Store menu and click on any of the products to view the product details.</p>
+<p>Once you login, you can navigate to the <strong>Cool Stufff Store</strong> from the top menubar and click on any of the products to view the product details.</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/coolstuff-store.png" alt="coolstuff store"></span></p>
+</div>
 </li>
 </ul>
 </div>
@@ -418,7 +453,16 @@ a9da52f7e7cab4b3d96e9fe1249e9ebf-309934634.eu-west-1.elb.amazonaws.com</code></p
 <div class="ulist">
 <ul>
 <li>
-<p>Type in a review comment -  which is socially acceptable and not abusive - and submit the review</p>
+<p>Type in a review comment -  which is socially acceptable and not abusive - and submit the review.</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/enter-review.png" alt="enter review"></span></p>
+</div>
+</li>
+<li>
+<p>You will see a notification on the screen that the review has been submitted</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/view-review.png" alt="view review"></span></p>
+</div>
 </li>
 <li>
 <p>Refresh the page after a couple of seconds, and you if your review was moderated, the review would appear on the page</p>
@@ -436,8 +480,52 @@ a9da52f7e7cab4b3d96e9fe1249e9ebf-309934634.eu-west-1.elb.amazonaws.com</code></p
 </ul>
 </div>
 <div class="paragraph">
-<p>Let us now trace the flow of the reviews across the various systems
-&lt;TBC&gt;</p>
+<p>Let us now trace the flow of the reviews across the various systems</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The review gets submitted to the <strong>globex.reviews</strong> kafka topic, which then gets picked up by the Intelligent App <strong>aiml-moderate-reviews</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>This service routes the reviews to either <strong>reviews.moderated</strong> topic or <strong>reviews.denied</strong> topic depending on whether review&#8217;s languge was acceptable or not</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/aiml-moderate-reviews-app.png" alt="aiml moderate reviews app"></span></p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>You can view these topics through Kafkdrop. To access Kafdrop, navigate to <strong>globex-mw</strong> namespace, and launch kafdrop.</p>
+</li>
+<li>
+<p>Filter the topics with the word <strong>review</strong> to see a list of relevant topics</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/reviews-topics.png" alt="reviews topics"></span></p>
+</div>
+</li>
+<li>
+<p>Click on each of the topics to see the actual messages.</p>
+</li>
+<li>
+<p>This is the <strong>reviews.moderated</strong> topic. You will notic that the message is a JSON.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What is even more interestig is the headers of this message <strong>ce-type</strong> and <strong>ce-source</strong></p>
+</li>
+<li>
+<p>These headers are present because the messages are all managed as <a href="https://cloudevents.io/" target="_blank" rel="noopener">Cloud Events</a>. CloudEvents is a a specification for describing event data in a common way.</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/moderated-review.png" alt="moderated review"></span></p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
