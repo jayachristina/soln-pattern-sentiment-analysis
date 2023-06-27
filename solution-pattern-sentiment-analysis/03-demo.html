@@ -103,9 +103,6 @@
     <a class="nav-link" href="03-demo.html">3. See the Solution in Action</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#_demonstration">3.1. Demonstration</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="#_run_the_demonstration">3.2. Run this demonstration</a>
 <ul class="nav-list">
@@ -187,39 +184,364 @@
 <h1 class="page">Solution Pattern: Name Template</h1>
 <h1 id="_see_the_solution_in_action" class="sect0"><a class="anchor" href="#_see_the_solution_in_action"></a><a class="link" href="#_see_the_solution_in_action">See the Solution in Action</a></h1>
 <div class="sect1">
-<h2 id="_demonstration"><a class="anchor" href="#_demonstration"></a><a class="link" href="#_demonstration">1. Demonstration</a></h2>
+<h2 id="_setup_the_solution"><a class="anchor" href="#_setup_the_solution"></a><a class="link" href="#_setup_the_solution">1. Setup the Solution</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Include here content related to potential existing demos: blogs, articles, recorded videos, walkthrough guides, tutorials.</p>
+<p>To provision the demo you will perform the following steps - each of which are explained in detail in the next sections:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Gain access to Red Hat OpenShift. This solution pattern has been tested on <a href="https://docs.openshift.com/container-platform/4.13/welcome/index.html" target="_blank" rel="noopener">OpenShift 4.13</a></p>
+</li>
+<li>
+<p>Ensure you have the toold <code>oc</code> and <code>ansible</code> installed in your local environment such as your laptop</p>
+</li>
+<li>
+<p>Access the OpenShift cluster with cluster-admin privileges</p>
+</li>
+<li>
+<p>Log in to OpenShift with <code>cluster-admin</code> role via cli</p>
+</li>
+<li>
+<p>Run the Ansible playbook</p>
+</li>
+<li>
+<p>Run a  bunch of scripts to deploy the Solution Pattern in your OpenShift cluster</p>
+</li>
+</ul>
 </div>
 <div class="sect2">
-<h3 id="demo-video"><a class="anchor" href="#demo-video"></a><a class="link" href="#demo-video">1.1. Watch a demonstration</a></h3>
+<h3 id="_before_getting_started"><a class="anchor" href="#_before_getting_started"></a><a class="link" href="#_before_getting_started">1.1. Before getting started</a></h3>
 <div class="paragraph">
-<p>TBC</p>
+<p>Here is the list of tools you need in your machine to so you can use the automated installation.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://docs.openshift.com/container-platform/4.13/cli_reference/openshift_cli/getting-started-cli.html" target="_blank" rel="noopener">OpenShift CLI (oc client)</a></p>
+</li>
+<li>
+<p><a href="https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html" target="_blank" rel="noopener">Ansible CLI </a></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://docs.ansible.com/ansible/latest/collections/kubernetes/core/k8s_module.html" target="_blank" rel="noopener">Ansible kubernetes.core module</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>Next, you can learn how to walkthrough this demo.</p>
+<p>To check if you have the cli tools, you can open your terminal and use following commands:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">oc version #openshift cli client
+ansible --version
+ansible-galaxy --version
+ansible-galaxy collection list #the list should include kubernetes.core</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you can&#8217;t see <code>kubernetes.core</code> collection listed, you can install it with <code>ansible-galaxy</code>:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">ansible-galaxy collection install kubernetes.core</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_installing_the_demo"><a class="anchor" href="#_installing_the_demo"></a><a class="link" href="#_installing_the_demo">1.2. Installing the demo</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Clone the ansible scripts as follows in an appropriate folder in your local environment</p>
+</li>
+</ul>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">git clone https://github.com/rh-soln-pattern-sentiment-analysis/ansible</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Navigate to the <code>ansible</code> folder</p>
+</li>
+</ul>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">cd ansible</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Run the ansible playbook as show below</p>
+</li>
+</ul>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">ansible-playbook playbooks/install.yml -e"ACTION=provision"</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>This ansible playbook is till work-in-progress, so you need to run some scripts to complete installation. Once the ansible playbook is all setup, this step will be simplified.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>You will need to clone another git repo. So navigate away from the <code>ansible</code> folder</p>
+</li>
+<li>
+<p>Clone the script repo</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">git clone  https://github.com/rh-soln-pattern-sentiment-analysis/deployment</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>navigate to right folder, and run the script</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">cd deployment/post-ansible-install
+./post-ansible-install.sh</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>This script will display the Grafana Dashboard URL at the end of execution along with the username/password. Make note of this</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">This is the grafana route
+a9da52f7e7cab4b3d96e9fe1249e9ebf-309934634.eu-west-1.elb.amazonaws.com</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>That&#8217;s it! You are set to try out this Solution Pattern! ｡◕‿◕｡</p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_run_the_demonstration"><a class="anchor" href="#_run_the_demonstration"></a><a class="link" href="#_run_the_demonstration">2. Run the demonstration</a></h2>
+<h2 id="_walkthrough_guide"><a class="anchor" href="#_walkthrough_guide"></a><a class="link" href="#_walkthrough_guide">2. Walkthrough guide</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_before_getting_started"><a class="anchor" href="#_before_getting_started"></a><a class="link" href="#_before_getting_started">2.1. Before getting started</a></h3>
-
+<h3 id="_explore_the_deployment_on_red_hat_openshift"><a class="anchor" href="#_explore_the_deployment_on_red_hat_openshift"></a><a class="link" href="#_explore_the_deployment_on_red_hat_openshift">2.1. Explore the deployment on Red Hat OpenShift</a></h3>
+<div class="paragraph">
+<p>There are 4 namespaces which are used for this Solution Pattern</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>sentiment-analysis</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>most of the microservices</p>
+</li>
+<li>
+<p>knative services, knative brokers, and  knative triggers</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>influxdb-project</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>InfluxDB - a time series database</p>
+</li>
+<li>
+<p>Python based connector which reads from Kafka and pushes the content into InfluxDB</p>
+</li>
+<li>
+<p>Grafana dashboard</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>globex</strong>: A number of fundamental microservices and database of the fictitious retail customer Globex, which are used in the our application, but aren&#8217;t really impacting the Sentiment Analysis solution pattern</p>
+</li>
+<li>
+<p><strong>globex-mw</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Red Hat AMQ Streams (Apache Kafka)</p>
+</li>
+<li>
+<p>Kafdrop (a Kafka topic visualization tool)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>rhsso</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Red Hat SSO based on Keycloak which manages the user login. You can find the password for the <code>admin</code> user within the Secret &lt;TBC&gt; within this namespace</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_installing_the_demo"><a class="anchor" href="#_installing_the_demo"></a><a class="link" href="#_installing_the_demo">2.2. Installing the demo</a></h3>
-<div class="paragraph">
-<p>Installation guide and basic test of the demo installation if needed</p>
+<h3 id="_login_to_the_globex_webapplication"><a class="anchor" href="#_login_to_the_globex_webapplication"></a><a class="link" href="#_login_to_the_globex_webapplication">2.2. Login to the Globex Webapplication</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Navigate the <code>sentient-analysis</code> namespace and look for the globex-web-reviews deployment and launch this by clicking on the "launch arrow". Alternatively the route can be fetched by running <code>oc get route/globex-web-reviews</code> command from your command line</p>
+</li>
+<li>
+<p>A number of users have been already setup for you</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Choose any of these as login user names: <strong>asilva</strong>, <strong>mmiller</strong>, <strong>asanders</strong>, <strong>cjones</strong> or <strong>pwong</strong></p>
+</li>
+<li>
+<p>All users have  the same password:  <strong>openshift</strong></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Once you login, you can navigate to the Cool Store menu and click on any of the products to view the product details.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_walkthrough_guide"><a class="anchor" href="#_walkthrough_guide"></a><a class="link" href="#_walkthrough_guide">2.3. Walkthrough guide</a></h3>
+<h3 id="_review_moderation_scenario"><a class="anchor" href="#_review_moderation_scenario"></a><a class="link" href="#_review_moderation_scenario">2.3. Review Moderation scenario</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Type in a review comment -  which is socially acceptable and not abusive - and submit the review</p>
+</li>
+<li>
+<p>Refresh the page after a couple of seconds, and you if your review was moderated, the review would appear on the page</p>
+</li>
+<li>
+<p>If you are adventurous, try one with abusive langage - not that we encourage this behaviour :) - but let&#8217;s put the system through its paces</p>
+<div class="ulist">
+<ul>
+<li>
+<p>You would notice that this review (ideally) will not appear on the screen.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 <div class="paragraph">
-<p>How to run through the demo</p>
+<p>Let us now trace the flow of the reviews across the various systems
+&lt;TBC&gt;</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sentiment_analysis_scenario"><a class="anchor" href="#_sentiment_analysis_scenario"></a><a class="link" href="#_sentiment_analysis_scenario">2.4. Sentiment Analysis scenario</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Remember the grafana link that you made a note of? Now is a good time to navigate to that URL. Login using <strong>admin/graphsRcool</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Don&#8217;t have the link to the Grafana Dashboard? Fret not ;).</p>
+</li>
+<li>
+<p>Navigate to the influxdb-project namespace and then to the <code>grafana-creds</code> secret. Click on Reveal values and voila! There you have the URL! We are helpful that way :)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Navigate to the Globex Sentiment Analysis Dashboard</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You will see a couple of data there from the reviews you had submitted in the previous step - nothing much to talk about! Yet&#8230;&#8203;..<br>
+Let&#8217;s use a simulator to submit a number of reviews to see some serious stuff!!  \m/</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Navigate back to the <code>sentiment-analysis</code> namespace and look for the <code>reviews-simulator</code> deployment and launch it. This is deployed as a knative services with zero replica. So you can see a pod getting created</p>
+</li>
+<li>
+<p>Click on the <strong>Try it out</strong> button, choose the <strong>Clothing</strong> option, and click <strong>Execute</strong>. A number of random reviews are generated for you.</p>
+</li>
+<li>
+<p>Go ahead and try out the <strong>Bags</strong> option as well!</p>
+</li>
+<li>
+<p>Give it a go a few more times maybe</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Alright.. Let&#8217;s go check out the Grafana Dashboard.. and you will a doughnut shaped chart right on top of the page showing the breakup of the overall sentiment across Globex.</p>
+</div>
+<div class="paragraph">
+<p>Right below this, you will also see the charts showing the sentiment analysis breakup for Clothing and Bags. You can duplicate these charts with other Catalgues as well. Here is a list of all of the possible catalogues</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>clothing</p>
+</li>
+<li>
+<p>bags</p>
+</li>
+<li>
+<p>utensils</p>
+</li>
+<li>
+<p>office supplies</p>
+</li>
+<li>
+<p>fashion accessory</p>
+</li>
+<li>
+<p>electronics</p>
+</li>
+<li>
+<p>sports equipment</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can generate more reviews using the simulator to view more data on the dashboard.</p>
+</div>
+<div class="paragraph">
+<p>Well done! You have come to the end of the demo. You can have a look at all this code here: <a href="https://github.com/rh-soln-pattern-sentiment-analysis" class="bare">https://github.com/rh-soln-pattern-sentiment-analysis</a></p>
+</div>
+<div class="paragraph">
+<p>Errors? Issues? Feel free to submit questions or file a bug.  And you are welcome to contribute too ツ</p>
+</div>
+<div class="paragraph">
+<p>All the images are here: <a href="https://quay.io/organization/globex-sentiment-analysis" class="bare">https://quay.io/organization/globex-sentiment-analysis</a></p>
 </div>
 </div>
 </div>
