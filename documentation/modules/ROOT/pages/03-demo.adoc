@@ -13,7 +13,7 @@ To provision the demo you will perform the following steps - each of which are e
 * Ensure you have the toold `oc` and `ansible` installed in your local environment such as your laptop
 * Access the OpenShift cluster with cluster-admin privileges
 * Log in to OpenShift with `cluster-admin` role via cli
-* Run the Ansible playbook 
+* Run the Ansible playbook
 * Run a  bunch of scripts to deploy the Solution Pattern in your OpenShift cluster
 
 
@@ -48,7 +48,7 @@ ansible-galaxy collection install kubernetes.core
 
 * Login to your OpenShift cluser as cluster-admin (because a number of operators will need to be installed)
 * Click on the username on the top right hand, and then click on *Copy login command*. This will open another tab and you will need to login again
-* Click on *Display token* link, and copy the command under  *Log in with this token*. This will look like this 
+* Click on *Display token* link, and copy the command under  *Log in with this token*. This will look like this
 [source,shell script]
 ----
 oc login --token=<token> --server=<server>
@@ -69,7 +69,7 @@ git clone https://github.com/rh-soln-pattern-sentiment-analysis/ansible
 cd ansible
 ----
 
-* Run the ansible playbook as show below. This will take a few minutes to complete. Ensure the script is deployed without errors
+* Run the ansible playbook as show below. This will take a few minutes to complete. Ensure that the ansible playbook is deployed without errors
 
 [.console-input]
 [source,shell script]
@@ -77,41 +77,33 @@ cd ansible
 ansible-playbook playbooks/install.yml -e"ACTION=provision"
 ----
 
-* There is one last step that needs to be done - which is to ensure that the same token is used by InfluxDB, Kafka-Influx Connector and Grafana, so that  Kafka-Influx Connector and Grafana can access the InfluxDB buckets. The token has already been setup as part of the ansible playbooks. This command inject the same token into the the InfluxDB bucket as well
-[.console-input]
-[source,shell script]
-----
-oc exec -it "$(oc get pod -n influxdb-project | grep influxdb | awk '/^influxdb/ {print $1; exit}')" -n influxdb-project -- influx setup --org globex --bucket globex-bucket --username globex --password globex123 --token 91XvhQY1nzme54HHzaRVlJUp8lJ2EoB8frQ7rksiZju3G5eAomPSBifL3oveHlAPiV8yDn4AmjmJ6fZA2ajXfQ== --force
-----
-
 That's it! You are set to try out this Solution Pattern! ｡◕‿◕｡
-
 
 == Walkthrough guide
 
 === Explore the deployment on Red Hat OpenShift
 There are 4 namespaces which are used for this Solution Pattern
 
-* *sentiment-analysis*: 
+* *sentiment-analysis*:
 ** most of the microservices
 ** knative services, knative brokers, and  knative triggers
-* *influxdb-project*: 
-** InfluxDB - a time series database 
-** Python based connector which reads from Kafka and pushes the content into InfluxDB  
+* *influxdb-project*:
+** InfluxDB - a time series database
+** Python based connector which reads from Kafka and pushes the content into InfluxDB
 ** Grafana dashboard
 * *globex*: A number of fundamental microservices and database of the fictitious retail customer Globex, which are used in the our application, but aren't really impacting the Sentiment Analysis solution pattern
-* *globex-mw*: 
-** Red Hat AMQ Streams (Apache Kafka) 
+* *globex-mw*:
+** Red Hat AMQ Streams (Apache Kafka)
 ** Kafdrop (a Kafka topic visualization tool)
 * *rhsso*:
 ** Red Hat SSO based on Keycloak which manages the user login. You can find the password for the `admin` user within the Secret *credential-rhsso* within the *rhsso* namespace
 
 === Login to the Globex Webapplication
 
-* Navigate the *sentiment-analysis* namespace and look for the *globex-web-reviews* deployment in the Developers perspective. 
+* Navigate the *sentiment-analysis* namespace and look for the *globex-web-reviews* deployment in the Developers perspective.
 +
-image:sentiment-analysis.png[] 
-* Launch the globex-web-reviews app by clicking on the "launch arrow". 
+image:sentiment-analysis.png[]
+* Launch the globex-web-reviews app by clicking on the "launch arrow".
 ** Alternatively the route can be fetched by running this command from your command line +
 *oc get route/globex-web-reviews -n sentiment-analysis*
 +
@@ -124,7 +116,7 @@ image:launch-globex.png[width=30%]
 image:coolstuff-store.png[]
 
 === Review Moderation scenario
-* Type in a review comment -  which is socially acceptable and not abusive - and submit the review. 
+* Type in a review comment -  which is socially acceptable and not abusive - and submit the review.
 +
 image:enter-review.png[]
 * You will see a notification on the screen that the review has been submitted
@@ -132,7 +124,7 @@ image:enter-review.png[]
 image:view-review.png[]
 * Wait for a fewseconds and the review would appear on the page - if your review was moderated as acceptable.
 * If you are adventurous, try one with abusive langage - not that we encourage this behaviour :) - but let's put the system through its paces
-** You would notice that this review (ideally) will not appear on the screen. 
+** You would notice that this review (ideally) will not appear on the screen.
 
 Let us now trace the flow of the reviews across the various systems
 
@@ -147,13 +139,13 @@ image:reviews-topics.png[]
 * Click on each of the topics to see the actual messages.
 * This is the *reviews.moderated* topic. You will notic that the message is a JSON.
 ** What is even more interestig is the headers of this message *ce-type* and *ce-source*
-** These headers are present because the messages are all managed as https://cloudevents.io/[Cloud Events^]. CloudEvents is a a specification for describing event data in a common way. 
+** These headers are present because the messages are all managed as https://cloudevents.io/[Cloud Events^]. CloudEvents is a a specification for describing event data in a common way.
 +
 image:moderated-review.png[]
 
 === Sentiment Analysis scenario
 * To access the *Grafana Dashboard,* navigate to *influxdb-project* namespace in your OpenShift cluster
-** Navigate to *Networking > Services > grafana*. 
+** Navigate to *Networking > Services > grafana*.
 ** Navigate to the *Location* displayed under *Service Routing > Service address*
 +
 image:grafana-url.png[]
@@ -167,7 +159,7 @@ You will see a couple of data there from the reviews you had submitted in the pr
 
 Let's use a simulator to submit a number of reviews to see some serious stuff!!  \m/
 
-* Navigate back to the `sentiment-analysis` namespace and look for the `reviews-simulator` deployment and launch it. 
+* Navigate back to the `sentiment-analysis` namespace and look for the `reviews-simulator` deployment and launch it.
 +
 image:reviews-simulator.png[width=30%]
 * This is deployed as a knative services with zero replica. So you can see a pod getting created as soon as you launch it.
@@ -179,13 +171,13 @@ image:simulate-clothing-reviews.png[]
 * Give it a go a few more times maybe
 
 
-Alright.. Let's go check out the Grafana Dashboard.. 
+Alright.. Let's go check out the Grafana Dashboard..
 
-* You can view a doughnut shaped chart right on top of the page showing the breakup of the overall sentiment across Globex. 
-* Right below this, you will also see the charts showing the sentiment analysis breakup for Clothing and Bags. 
+* You can view a doughnut shaped chart right on top of the page showing the breakup of the overall sentiment across Globex.
+* Right below this, you will also see the charts showing the sentiment analysis breakup for Clothing and Bags.
 +
-image::clothing-dashboard.png[] 
-* You can duplicate these charts with other Catalgues as well. Here is a list of all of the possible catalogues 
+image::clothing-dashboard.png[]
+* You can duplicate these charts with other Catalgues as well. Here is a list of all of the possible catalogues
 ** clothing
 ** bags
 ** utensils
@@ -199,7 +191,7 @@ image::clothing-dashboard.png[]
 image:bag-dashboard.png[]
 * You can also view the Tabular Data of the Bags and Clothing catalogues
 +
-image:tabular-data.png[] 
+image:tabular-data.png[]
 
 Well done! You have come to the end of the demo. You can have a look at all this code here: https://github.com/rh-soln-pattern-sentiment-analysis
 
