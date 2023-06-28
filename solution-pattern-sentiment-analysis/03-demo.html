@@ -177,7 +177,7 @@
 <p>Gain access to Red Hat OpenShift. This solution pattern has been tested on <a href="https://docs.openshift.com/container-platform/4.13/welcome/index.html" target="_blank" rel="noopener">OpenShift 4.13</a></p>
 </li>
 <li>
-<p>Ensure you have the toold <code>oc</code> and <code>ansible</code> installed in your local environment such as your laptop</p>
+<p>Ensure you have the tools <code>oc</code> and <code>ansible</code> installed in your local environment such as your laptop</p>
 </li>
 <li>
 <p>Access the OpenShift cluster with cluster-admin privileges</p>
@@ -196,7 +196,7 @@
 <div class="sect2">
 <h3 id="_before_getting_started"><a class="anchor" href="#_before_getting_started"></a><a class="link" href="#_before_getting_started">1.1. Before getting started</a></h3>
 <div class="paragraph">
-<p>Here is the list of tools you need in your machine to so you can use the automated installation.</p>
+<p>Here is the list of tools you need in your local enviroment so that you can use the automated installation.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -240,7 +240,7 @@ ansible-galaxy collection list #the list should include kubernetes.core</code></
 <div class="ulist">
 <ul>
 <li>
-<p>Login to your OpenShift cluser as cluster-admin (because a number of operators will need to be installed)</p>
+<p>Login to your OpenShift cluster as cluster-admin (because a number of operators will need to be installed)</p>
 </li>
 <li>
 <p>Click on the username on the top right hand, and then click on <strong>Copy login command</strong>. This will open another tab and you will need to login again</p>
@@ -282,7 +282,7 @@ ansible-galaxy collection list #the list should include kubernetes.core</code></
 <div class="ulist">
 <ul>
 <li>
-<p>Run the ansible playbook as show below. This will take a few minutes to complete. Ensure that the ansible playbook is deployed without errors</p>
+<p>Run the ansible playbook as shown below. This will take a few minutes to complete. Ensure that the ansible playbook is deployed without errors</p>
 </li>
 </ul>
 </div>
@@ -379,7 +379,7 @@ localhost                  : ok=89   changed=21   unreachable=0    failed=0    s
 </div>
 </div>
 <div class="sect2">
-<h3 id="_login_to_the_globex_webapplication"><a class="anchor" href="#_login_to_the_globex_webapplication"></a><a class="link" href="#_login_to_the_globex_webapplication">2.2. Login to the Globex Webapplication</a></h3>
+<h3 id="_login_to_the_globex_web_application"><a class="anchor" href="#_login_to_the_globex_web_application"></a><a class="link" href="#_login_to_the_globex_web_application">2.2. Login to the Globex Web Application</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -416,7 +416,7 @@ localhost                  : ok=89   changed=21   unreachable=0    failed=0    s
 </div>
 </li>
 <li>
-<p>Once you login, you can navigate to the <strong>Cool Stufff Store</strong> from the top menubar and click on any of the products to view the product details.</p>
+<p>Once you login, you can navigate to the <strong>Cool Stuff Store</strong> from the top menubar and click on any of the products to view the product details.</p>
 <div class="paragraph">
 <p><span class="image"><img src="_images/coolstuff-store.png" alt="coolstuff store"></span></p>
 </div>
@@ -441,7 +441,7 @@ localhost                  : ok=89   changed=21   unreachable=0    failed=0    s
 </div>
 </li>
 <li>
-<p>Wait for a fewseconds and the review would appear on the page - if your review was moderated as acceptable.</p>
+<p>Wait for a few seconds and the review would appear on the page - if your review was moderated as acceptable.</p>
 </li>
 <li>
 <p>If you are adventurous, try one with abusive langage - not that we encourage this behaviour :) - but let&#8217;s put the system through its paces</p>
@@ -465,7 +465,7 @@ localhost                  : ok=89   changed=21   unreachable=0    failed=0    s
 <div class="ulist">
 <ul>
 <li>
-<p>This service routes the reviews to either <strong>reviews.moderated</strong> topic or <strong>reviews.denied</strong> topic depending on whether review&#8217;s languge was acceptable or not</p>
+<p>This service routes the reviews to either <strong>reviews.moderated</strong> topic or <strong>reviews.denied</strong> topic depending on whether review&#8217;s language was acceptable or not</p>
 <div class="paragraph">
 <p><span class="image"><img src="_images/aiml-moderate-reviews-app.png" alt="aiml moderate reviews app"></span></p>
 </div>
@@ -486,14 +486,14 @@ localhost                  : ok=89   changed=21   unreachable=0    failed=0    s
 <p>Click on each of the topics to see the actual messages.</p>
 </li>
 <li>
-<p>This is the <strong>reviews.moderated</strong> topic. You will notic that the message is a JSON.</p>
+<p>This is the <strong>reviews.moderated</strong> topic. You will notice that the message is a JSON.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>What is even more interestig is the headers of this message <strong>ce-type</strong> and <strong>ce-source</strong></p>
+<p>What is even more interesting is the headers of this message <strong>ce-type</strong> and <strong>ce-source</strong></p>
 </li>
 <li>
-<p>These headers are present because the messages are all managed as <a href="https://cloudevents.io/" target="_blank" rel="noopener">Cloud Events</a>. CloudEvents is a a specification for describing event data in a common way.</p>
+<p>These headers are present because the messages are all managed as <a href="https://cloudevents.io/" target="_blank" rel="noopener">Cloud Events</a>. CloudEvents is a specification for describing event data in a common way.</p>
 <div class="paragraph">
 <p><span class="image"><img src="_images/moderated-review.png" alt="moderated review"></span></p>
 </div>
@@ -557,7 +557,7 @@ localhost                  : ok=89   changed=21   unreachable=0    failed=0    s
 </div>
 </li>
 <li>
-<p>This is deployed as a knative services with zero replica. So you can see a pod getting created as soon as you launch it.</p>
+<p>This is deployed as a knative service with zero replica. So you can see a pod getting created as soon as you launch it.</p>
 </li>
 <li>
 <p>Click on the <strong>POST</strong>, and then the <strong>Try it out</strong> button.</p>
@@ -593,7 +593,7 @@ localhost                  : ok=89   changed=21   unreachable=0    failed=0    s
 </div>
 </li>
 <li>
-<p>You can duplicate these charts with other Catalgues as well. Here is a list of all of the possible catalogues</p>
+<p>You can duplicate these charts with other Catalogues as well. Here is a list of all of the possible catalogues</p>
 <div class="ulist">
 <ul>
 <li>

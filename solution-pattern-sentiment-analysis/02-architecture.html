@@ -184,7 +184,7 @@ Introduction for the architecture of this solution pattern.
 <p>It is also important to moderate the reviews for abusive language, unwanted text and also ensure privacy and security of personal data. There is a need to moderate each of the reviews for language and other areas before they are published to the eCommerce application.</p>
 </div>
 <div class="paragraph">
-<p>Adoption of a streaming techniology such as Kafka becomes important to manage multiple systens which would consume the data from the data stream as events. But not all teams are well versed with using Kafka as a data stream. And this could potentially slowdown the implementation of features. The events generated and consumed will need to be monitored and measured, with a possibility of even securing access data streaming platform</p>
+<p>Adoption of a streaming technology such as Kafka becomes important to manage multiple systems which would consume the data from the data stream as events. But not all teams are well versed with using Kafka as a data stream. And this could potentially slowdown the implementation of features. The events generated and consumed will need to be monitored and measured, with a possibility of even securing access data streaming platform</p>
 </div>
 </div>
 </div>
@@ -258,7 +258,7 @@ Introduction for the architecture of this solution pattern.
 <div class="sect2">
 <h3 id="_intelligent_applications_with_red_hat_openshift_data_science"><a class="anchor" href="#_intelligent_applications_with_red_hat_openshift_data_science"></a><a class="link" href="#_intelligent_applications_with_red_hat_openshift_data_science">4.1. Intelligent Applications with Red Hat OpenShift Data Science</a></h3>
 <div class="paragraph">
-<p>For building the <strong>Sentiment Analysis</strong> and <strong>Reviews Moderation</strong> Intelligent Applications based on AIML, the solution leverages <a href="https://www.redhat.com/en/technologies/cloud-computing/openshift/openshift-data-science" target="_blank" rel="noopener">Red Hat OpenShift Data Science</a> platform. With OpenShift Data Science, the organizations can</p>
+<p>For building the <strong>Sentiment Analysis</strong> and <strong>Reviews Moderation</strong> Intelligent Applications based on AIML, the solution leverages <a href="https://www.redhat.com/en/technologies/cloud-computing/openshift/openshift-data-science" target="_blank" rel="noopener">Red Hat OpenShift Data Science</a> platform. With OpenShift Data Science, the organisations can</p>
 </div>
 <div class="ulist">
 <ul>
@@ -277,12 +277,12 @@ Introduction for the architecture of this solution pattern.
 <div class="sect2">
 <h3 id="_event_driven_architecture_with_openshift_serverless"><a class="anchor" href="#_event_driven_architecture_with_openshift_serverless"></a><a class="link" href="#_event_driven_architecture_with_openshift_serverless">4.2. Event Driven Architecture with OpenShift Serverless</a></h3>
 <div class="paragraph">
-<p>OpenShift Serverless, bbased on the upstream Knative project, helps with event-driven computing amongst other usecases. The Eventing functionality provides the capability to build Event-Driven applications that can connect to and from a number of systems. In this solution, all the services emit Cloud Events with specific <code>ce-type</code> and <code>ce-source</code>. These events are then fed into the Knative Broker. The associated triggers will invoke the right knative service to respond to the right event. Building all this is super easy using CRDs.</p>
+<p>OpenShift Serverless, based on the upstream Knative project, helps with event-driven computing amongst other usecases. The Eventing functionality provides the capability to build Event-Driven applications that can connect to and from a number of systems. In this solution, all the services emit Cloud Events with specific <code>ce-type</code> and <code>ce-source</code>. These events are then fed into the Knative Broker. The associated triggers will invoke the right knative service to respond to the right event. Building all this is super easy using CRDs.</p>
 </div>
 <div class="sect3">
 <h4 id="_cloud_events"><a class="anchor" href="#_cloud_events"></a><a class="link" href="#_cloud_events">4.2.1. Cloud Events</a></h4>
 <div class="paragraph">
-<p>With Knative Eventing, all the systems talk to each other using the <a href="https://cloudevents.io/" target="_blank" rel="noopener">Cloud Events</a> which is a specification for describing event data in a common way. Cloud Events makes it easy for various actors (services, systems etc) interact with each other in a standard way. Further more, this can be used for adopting Observability using Open Tracing.</p>
+<p>With Knative Eventing, all the systems talk to each other using the <a href="https://cloudevents.io/" target="_blank" rel="noopener">Cloud Events</a> which is a specification for describing event data in a common way. Cloud Events makes it easy for various actors (services, systems etc) to interact with each other in a standard way. Furthermore, this can be used for adopting Observability using Open Tracing.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -294,7 +294,7 @@ Introduction for the architecture of this solution pattern.
 <div class="sect2">
 <h3 id="_realtime_dashboard_for_sentiment_analysis_influxdb_and_grafana"><a class="anchor" href="#_realtime_dashboard_for_sentiment_analysis_influxdb_and_grafana"></a><a class="link" href="#_realtime_dashboard_for_sentiment_analysis_influxdb_and_grafana">4.3. Realtime Dashboard for Sentiment Analysis: InfluxDB and Grafana</a></h3>
 <div class="paragraph">
-<p>Once the review is processed by the <strong>Sentiment Analysis</strong> service, the data is streamed into Kafka real-time. Another knative Service then consumes this data and pushed into InfluxDB. Grafana Dashboards can be coonfigured to read from this TimeSeries DB and plot the sentiment analysis score on a dashboard.</p>
+<p>Once the review is processed by the <strong>Sentiment Analysis</strong> service, the data is streamed into Kafka real-time. Another knative Service then consumes this data and pushed into InfluxDB. Grafana Dashboards can be configured to read from this TimeSeries DB and plot the sentiment analysis score on a dashboard.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -305,7 +305,7 @@ Introduction for the architecture of this solution pattern.
 <div class="sect2">
 <h3 id="_reviews_moderation"><a class="anchor" href="#_reviews_moderation"></a><a class="link" href="#_reviews_moderation">4.4. Reviews moderation</a></h3>
 <div class="paragraph">
-<p>The Reviews also pass through the <strong>Reviews Moderation</strong> Intelligent Application which filters the reviews for abusive or foul language. Only the reviews which are moderated is then persisted in the database and then be displayed on the product page.</p>
+<p>The Reviews also pass through the <strong>Reviews Moderation</strong> Intelligent Application which filters the reviews for abusive or foul language. Only the reviews which are moderated are then persisted in the database and then be displayed on the product page.</p>
 </div>
 <div class="imageblock">
 <div class="content">
