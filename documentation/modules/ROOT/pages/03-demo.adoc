@@ -77,6 +77,14 @@ cd ansible
 ansible-playbook playbooks/install.yml -e"ACTION=provision"
 ----
 
+* This is the output you get from the above ansible command:
+
+[example]
+----
+PLAY RECAP ********************************************************************************************************************************************
+localhost                  : ok=89   changed=21   unreachable=0    failed=0    skipped=25   rescued=0    ignored=0
+----
+
 That's it! You are set to try out this Solution Pattern! ｡◕‿◕｡
 
 == Walkthrough guide
