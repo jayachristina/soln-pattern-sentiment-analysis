@@ -282,25 +282,13 @@ ansible-galaxy collection list #the list should include kubernetes.core</code></
 <div class="ulist">
 <ul>
 <li>
-<p>Run the ansible playbook as show below. This will take a few minutes to complete. Ensure the script is deployed without errors</p>
+<p>Run the ansible playbook as show below. This will take a few minutes to complete. Ensure that the ansible playbook is deployed without errors</p>
 </li>
 </ul>
 </div>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">ansible-playbook playbooks/install.yml -e"ACTION=provision"</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>There is one last step that needs to be done - which is to ensure that the same token is used by InfluxDB, Kafka-Influx Connector and Grafana, so that  Kafka-Influx Connector and Grafana can access the InfluxDB buckets. The token has already been setup as part of the ansible playbooks. This command inject the same token into the the InfluxDB bucket as well</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>oc exec -it "$(oc get pod -n influxdb-project | grep influxdb | awk '/^influxdb/ {print $1; exit}')" -n influxdb-project -- influx setup --org globex --bucket globex-bucket --username globex --password globex123 --token 91XvhQY1nzme54HHzaRVlJUp8lJ2EoB8frQ7rksiZju3G5eAomPSBifL3oveHlAPiV8yDn4AmjmJ6fZA2ajXfQ== --force</pre>
 </div>
 </div>
 <div class="paragraph">
