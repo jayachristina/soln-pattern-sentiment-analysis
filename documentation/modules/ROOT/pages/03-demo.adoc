@@ -77,33 +77,12 @@ cd ansible
 ansible-playbook playbooks/install.yml -e"ACTION=provision"
 ----
 
-* This ansible playbook is still work-in-progress, so you need to run some scripts to complete installation. Once the ansible playbook is all setup, this step will be simplified.
-** You will need to clone another git repo. So navigate away from the `ansible` folder
-**  Clone the script repo
-+
+* There is one last step that needs to be done - which is to ensure that the same token is used by InfluxDB, Kafka-Influx Connector and Grafana, so that  Kafka-Influx Connector and Grafana can access the InfluxDB buckets. The token has already been setup as part of the ansible playbooks. This command inject the same token into the the InfluxDB bucket as well
 [.console-input]
 [source,shell script]
 ----
-git clone  https://github.com/rh-soln-pattern-sentiment-analysis/deployment
+oc exec -it "$(oc get pod -n influxdb-project | grep influxdb | awk '/^influxdb/ {print $1; exit}')" -n influxdb-project -- influx setup --org globex --bucket globex-bucket --username globex --password globex123 --token 91XvhQY1nzme54HHzaRVlJUp8lJ2EoB8frQ7rksiZju3G5eAomPSBifL3oveHlAPiV8yDn4AmjmJ6fZA2ajXfQ== --force
 ----
-
-** navigate to right folder, and run the script
-+
-[.console-input]
-[source,shell script]
-----
-
-cd deployment
-./complete-install.sh
-----
-** This script will display the Grafana Dashboard URL at the end of execution along with the username/password. Make note of this
-+
-[source,shell script]
-----
-This is the grafana route
-a9da52f7e7cab4b3d96e9fe1249e9ebf-309934634.eu-west-1.elb.amazonaws.com
-----
-
 
 That's it! You are set to try out this Solution Pattern! ｡◕‿◕｡
 
@@ -173,9 +152,7 @@ image:reviews-topics.png[]
 image:moderated-review.png[]
 
 === Sentiment Analysis scenario
-* Remember the grafana link that you made a note of? Now is a good time to navigate to that URL. Login using *admin/graphsRcool*
-** In case you can't find it, don't fret :) We got a plan B for you
-** From the *Administrator view*, go to *influxdb-project* namespace. 
+* To access the *Grafana Dashboard,* navigate to *influxdb-project* namespace in your OpenShift cluster
 ** Navigate to *Networking > Services > grafana*. 
 ** Navigate to the *Location* displayed under *Service Routing > Service address*
 +
@@ -228,4 +205,4 @@ Well done! You have come to the end of the demo. You can have a look at all this
 
 Errors? Issues? Feel free to submit questions or file a bug.  And you are welcome to contribute too ツ
 
-All the images are here: https://quay.io/organization/globex-sentiment-analysis
+All the container images are here: https://quay.io/organization/globex-sentiment-analysis
