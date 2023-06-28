@@ -10,7 +10,7 @@
 To provision the demo you will perform the following steps - each of which are explained in detail in the next sections:
 
 * Gain access to Red Hat OpenShift. This solution pattern has been tested on https://docs.openshift.com/container-platform/4.13/welcome/index.html[OpenShift 4.13^]
-* Ensure you have the toold `oc` and `ansible` installed in your local environment such as your laptop
+* Ensure you have the tools `oc` and `ansible` installed in your local environment such as your laptop
 * Access the OpenShift cluster with cluster-admin privileges
 * Log in to OpenShift with `cluster-admin` role via cli
 * Run the Ansible playbook
@@ -18,7 +18,7 @@ To provision the demo you will perform the following steps - each of which are e
 
 
 === Before getting started
-Here is the list of tools you need in your machine to so you can use the automated installation.
+Here is the list of tools you need in your local enviroment so that you can use the automated installation.
 
 * https://docs.openshift.com/container-platform/4.13/cli_reference/openshift_cli/getting-started-cli.html[OpenShift CLI (oc client)^]
 * https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html[Ansible CLI ^]
@@ -46,7 +46,7 @@ ansible-galaxy collection install kubernetes.core
 
 === Installing the demo
 
-* Login to your OpenShift cluser as cluster-admin (because a number of operators will need to be installed)
+* Login to your OpenShift cluster as cluster-admin (because a number of operators will need to be installed)
 * Click on the username on the top right hand, and then click on *Copy login command*. This will open another tab and you will need to login again
 * Click on *Display token* link, and copy the command under  *Log in with this token*. This will look like this
 [source,shell script]
@@ -69,7 +69,7 @@ git clone https://github.com/rh-soln-pattern-sentiment-analysis/ansible
 cd ansible
 ----
 
-* Run the ansible playbook as show below. This will take a few minutes to complete. Ensure that the ansible playbook is deployed without errors
+* Run the ansible playbook as shown below. This will take a few minutes to complete. Ensure that the ansible playbook is deployed without errors
 
 [.console-input]
 [source,shell script]
@@ -106,7 +106,7 @@ There are 4 namespaces which are used for this Solution Pattern
 * *rhsso*:
 ** Red Hat SSO based on Keycloak which manages the user login. You can find the password for the `admin` user within the Secret *credential-rhsso* within the *rhsso* namespace
 
-=== Login to the Globex Webapplication
+=== Login to the Globex Web Application
 
 * Navigate the *sentiment-analysis* namespace and look for the *globex-web-reviews* deployment in the Developers perspective.
 +
@@ -119,7 +119,7 @@ image:launch-globex.png[width=30%]
 * A number of users have been already setup for you
 ** Choose any of these as login user names: *asilva*, *mmiller*, *asanders*, *cjones* or *pwong*
 ** All users have  the same password:  *openshift*
-* Once you login, you can navigate to the *Cool Stufff Store* from the top menubar and click on any of the products to view the product details.
+* Once you login, you can navigate to the *Cool Stuff Store* from the top menubar and click on any of the products to view the product details.
 +
 image:coolstuff-store.png[]
 
@@ -130,14 +130,14 @@ image:enter-review.png[]
 * You will see a notification on the screen that the review has been submitted
 +
 image:view-review.png[]
-* Wait for a fewseconds and the review would appear on the page - if your review was moderated as acceptable.
+* Wait for a few seconds and the review would appear on the page - if your review was moderated as acceptable.
 * If you are adventurous, try one with abusive langage - not that we encourage this behaviour :) - but let's put the system through its paces
 ** You would notice that this review (ideally) will not appear on the screen.
 
 Let us now trace the flow of the reviews across the various systems
 
 * The review gets submitted to the *globex.reviews* kafka topic, which then gets picked up by the Intelligent App *aiml-moderate-reviews*
-** This service routes the reviews to either *reviews.moderated* topic or *reviews.denied* topic depending on whether review's languge was acceptable or not
+** This service routes the reviews to either *reviews.moderated* topic or *reviews.denied* topic depending on whether review's language was acceptable or not
 +
 image:aiml-moderate-reviews-app.png[]
 * You can view these topics through Kafkdrop. To access Kafdrop, navigate to *globex-mw* namespace, and launch kafdrop.
@@ -145,9 +145,9 @@ image:aiml-moderate-reviews-app.png[]
 +
 image:reviews-topics.png[]
 * Click on each of the topics to see the actual messages.
-* This is the *reviews.moderated* topic. You will notic that the message is a JSON.
-** What is even more interestig is the headers of this message *ce-type* and *ce-source*
-** These headers are present because the messages are all managed as https://cloudevents.io/[Cloud Events^]. CloudEvents is a a specification for describing event data in a common way.
+* This is the *reviews.moderated* topic. You will notice that the message is a JSON.
+** What is even more interesting is the headers of this message *ce-type* and *ce-source*
+** These headers are present because the messages are all managed as https://cloudevents.io/[Cloud Events^]. CloudEvents is a specification for describing event data in a common way.
 +
 image:moderated-review.png[]
 
@@ -170,7 +170,7 @@ Let's use a simulator to submit a number of reviews to see some serious stuff!! 
 * Navigate back to the `sentiment-analysis` namespace and look for the `reviews-simulator` deployment and launch it.
 +
 image:reviews-simulator.png[width=30%]
-* This is deployed as a knative services with zero replica. So you can see a pod getting created as soon as you launch it.
+* This is deployed as a knative service with zero replica. So you can see a pod getting created as soon as you launch it.
 * Click on the *POST*, and then the *Try it out* button.
 * Choose the *Clothing Catalogue* option, and click *Execute*. A number of random reviews are generated for you.
 +
@@ -185,7 +185,7 @@ Alright.. Let's go check out the Grafana Dashboard..
 * Right below this, you will also see the charts showing the sentiment analysis breakup for Clothing and Bags.
 +
 image::clothing-dashboard.png[]
-* You can duplicate these charts with other Catalgues as well. Here is a list of all of the possible catalogues
+* You can duplicate these charts with other Catalogues as well. Here is a list of all of the possible catalogues
 ** clothing
 ** bags
 ** utensils

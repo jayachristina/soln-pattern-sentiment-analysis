@@ -9,7 +9,7 @@ Globex would like to
 
 == The Solution
 
-The solution based on an Event Driven Architecture which based on Apache Kafka as the data streaming platform for product reviews. The Product Reviews submitted by a customer is pushed in a Kafka topic, which is then consumed by both a *Review Moderation Service* (moderate for foul language) and *Sentiment Analysis Service* (scores the sentiment as positive or negative).
+The solution based on an Event Driven Architecture which based on Apache Kafka as the data streaming platform for product reviews. The Product Reviews submitted by a customer is pushed in a Kafka topic, which is then consumed by both a *Review Moderation Service* (moderate for foul/abusive language) and *Sentiment Analysis Service* (scores the sentiment as positive or negative).
 
 The data flows in and out of different systems through the OpenShift Serverless Eventing architecture which uses brokers, sources and triggers to build a scalable, fully decoupled system.
 

@@ -14,7 +14,7 @@ They are aware that customer reviews is a true reflection of how they are percei
 
 It is also important to moderate the reviews for abusive language, unwanted text and also ensure privacy and security of personal data. There is a need to moderate each of the reviews for language and other areas before they are published to the eCommerce application.
 
-Adoption of a streaming techniology such as Kafka becomes important to manage multiple systens which would consume the data from the data stream as events. But not all teams are well versed with using Kafka as a data stream. And this could potentially slowdown the implementation of features. The events generated and consumed will need to be monitored and measured, with a possibility of even securing access data streaming platform
+Adoption of a streaming technology such as Kafka becomes important to manage multiple systems which would consume the data from the data stream as events. But not all teams are well versed with using Kafka as a data stream. And this could potentially slowdown the implementation of features. The events generated and consumed will need to be monitored and measured, with a possibility of even securing access data streaming platform
 
 [#tech_stack]
 == Technology Stack
@@ -44,7 +44,7 @@ image::architecture-blocks.png[]
 == About the Technology Stack
 
 === Intelligent Applications with Red Hat OpenShift Data Science
-For building the *Sentiment Analysis* and *Reviews Moderation* Intelligent Applications based on AIML, the solution leverages https://www.redhat.com/en/technologies/cloud-computing/openshift/openshift-data-science[Red Hat OpenShift Data Science^] platform. With OpenShift Data Science, the organizations can
+For building the *Sentiment Analysis* and *Reviews Moderation* Intelligent Applications based on AIML, the solution leverages https://www.redhat.com/en/technologies/cloud-computing/openshift/openshift-data-science[Red Hat OpenShift Data Science^] platform. With OpenShift Data Science, the organisations can
 
 * Accelerate the delivery of intelligent applications and reduce time to market
 * Data scientists can rapidly develop, train, test, and deploy the models with an on-demand infrastructure
@@ -52,20 +52,20 @@ For building the *Sentiment Analysis* and *Reviews Moderation* Intelligent Appli
 
 === Event Driven Architecture with OpenShift Serverless 
 
-OpenShift Serverless, bbased on the upstream Knative project, helps with event-driven computing amongst other usecases. The Eventing functionality provides the capability to build Event-Driven applications that can connect to and from a number of systems. In this solution, all the services emit Cloud Events with specific `ce-type` and `ce-source`. These events are then fed into the Knative Broker. The associated triggers will invoke the right knative service to respond to the right event. Building all this is super easy using CRDs.
+OpenShift Serverless, based on the upstream Knative project, helps with event-driven computing amongst other usecases. The Eventing functionality provides the capability to build Event-Driven applications that can connect to and from a number of systems. In this solution, all the services emit Cloud Events with specific `ce-type` and `ce-source`. These events are then fed into the Knative Broker. The associated triggers will invoke the right knative service to respond to the right event. Building all this is super easy using CRDs.
 
 ==== Cloud Events
-With Knative Eventing, all the systems talk to each other using the https://cloudevents.io/[Cloud Events^] which is a specification for describing event data in a common way. Cloud Events makes it easy for various actors (services, systems etc) interact with each other in a standard way. Further more, this can be used for adopting Observability using Open Tracing.
+With Knative Eventing, all the systems talk to each other using the https://cloudevents.io/[Cloud Events^] which is a specification for describing event data in a common way. Cloud Events makes it easy for various actors (services, systems etc) to interact with each other in a standard way. Furthermore, this can be used for adopting Observability using Open Tracing.
 
 image::broker-trigger.png[width=30%]
 
 === Realtime Dashboard for Sentiment Analysis: InfluxDB and Grafana
-Once the review is processed by the *Sentiment Analysis* service, the data is streamed into Kafka real-time. Another knative Service then consumes this data and pushed into InfluxDB. Grafana Dashboards can be coonfigured to read from this TimeSeries DB and plot the sentiment analysis score on a dashboard.
+Once the review is processed by the *Sentiment Analysis* service, the data is streamed into Kafka real-time. Another knative Service then consumes this data and pushed into InfluxDB. Grafana Dashboards can be configured to read from this TimeSeries DB and plot the sentiment analysis score on a dashboard.
 
 image::grafana-dashboard.png[]
 
 
 === Reviews moderation
-The Reviews also pass through the *Reviews Moderation* Intelligent Application which filters the reviews for abusive or foul language. Only the reviews which are moderated is then persisted in the database and then be displayed on the product page.
+The Reviews also pass through the *Reviews Moderation* Intelligent Application which filters the reviews for abusive or foul language. Only the reviews which are moderated are then persisted in the database and then be displayed on the product page.
 
 image::moderated-reviews.png[]
