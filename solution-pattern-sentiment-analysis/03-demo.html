@@ -294,42 +294,14 @@ ansible-galaxy collection list #the list should include kubernetes.core</code></
 <div class="ulist">
 <ul>
 <li>
-<p>This ansible playbook is still work-in-progress, so you need to run some scripts to complete installation. Once the ansible playbook is all setup, this step will be simplified.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>You will need to clone another git repo. So navigate away from the <code>ansible</code> folder</p>
+<p>There is one last step that needs to be done - which is to ensure that the same token is used by InfluxDB, Kafka-Influx Connector and Grafana, so that  Kafka-Influx Connector and Grafana can access the InfluxDB buckets. The token has already been setup as part of the ansible playbooks. This command inject the same token into the the InfluxDB bucket as well</p>
 </li>
-<li>
-<p>Clone the script repo</p>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">git clone  https://github.com/rh-soln-pattern-sentiment-analysis/deployment</code></pre>
+</ul>
 </div>
-</div>
-</li>
-<li>
-<p>navigate to right folder, and run the script</p>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">cd deployment
-./complete-install.sh</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>This script will display the Grafana Dashboard URL at the end of execution along with the username/password. Make note of this</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">This is the grafana route
-a9da52f7e7cab4b3d96e9fe1249e9ebf-309934634.eu-west-1.elb.amazonaws.com</code></pre>
+<pre>oc exec -it "$(oc get pod -n influxdb-project | grep influxdb | awk '/^influxdb/ {print $1; exit}')" -n influxdb-project -- influx setup --org globex --bucket globex-bucket --username globex --password globex123 --token 91XvhQY1nzme54HHzaRVlJUp8lJ2EoB8frQ7rksiZju3G5eAomPSBifL3oveHlAPiV8yDn4AmjmJ6fZA2ajXfQ== --force</pre>
 </div>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
 </div>
 <div class="paragraph">
 <p>That&#8217;s it! You are set to try out this Solution Pattern! ｡◕‿◕｡</p>
@@ -536,15 +508,9 @@ a9da52f7e7cab4b3d96e9fe1249e9ebf-309934634.eu-west-1.elb.amazonaws.com</code></p
 <div class="ulist">
 <ul>
 <li>
-<p>Remember the grafana link that you made a note of? Now is a good time to navigate to that URL. Login using <strong>admin/graphsRcool</strong></p>
+<p>To access the <strong>Grafana Dashboard,</strong> navigate to <strong>influxdb-project</strong> namespace in your OpenShift cluster</p>
 <div class="ulist">
 <ul>
-<li>
-<p>In case you can&#8217;t find it, don&#8217;t fret :) We got a plan B for you</p>
-</li>
-<li>
-<p>From the <strong>Administrator view</strong>, go to <strong>influxdb-project</strong> namespace.</p>
-</li>
 <li>
 <p>Navigate to <strong>Networking &gt; Services &gt; grafana</strong>.</p>
 </li>
@@ -674,7 +640,7 @@ a9da52f7e7cab4b3d96e9fe1249e9ebf-309934634.eu-west-1.elb.amazonaws.com</code></p
 <p>Errors? Issues? Feel free to submit questions or file a bug.  And you are welcome to contribute too ツ</p>
 </div>
 <div class="paragraph">
-<p>All the images are here: <a href="https://quay.io/organization/globex-sentiment-analysis" class="bare">https://quay.io/organization/globex-sentiment-analysis</a></p>
+<p>All the container images are here: <a href="https://quay.io/organization/globex-sentiment-analysis" class="bare">https://quay.io/organization/globex-sentiment-analysis</a></p>
 </div>
 </div>
 </div>
