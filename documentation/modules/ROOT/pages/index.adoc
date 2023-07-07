@@ -1,4 +1,4 @@
-= Solution Patterns: Sentiment Analysis through Event-Driven Architecture
+= Solution Patterns: Sentiment Analysis with Kaka + AIML through Event-Driven Architecture
 :page-layout: home
 :sectnums:
 :sectlinks:
