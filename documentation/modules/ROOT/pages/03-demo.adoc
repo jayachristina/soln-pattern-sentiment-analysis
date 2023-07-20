@@ -152,11 +152,13 @@ image:reviews-topics.png[]
 image:moderated-review.png[]
 
 === Sentiment Analysis scenario
-* To access the *Grafana Dashboard,* navigate to *influxdb-project* namespace in your OpenShift cluster
-** Navigate to *Networking > Services > grafana*.
-** Navigate to the *Location* displayed under *Service Routing > Service address*
+* To access the *Grafana Dashboard,* navigatein your OpenShift cluster, navigate to *Networking > Routes*.
+* Filter with Name as *grafana* and click on the URL that is displayed under *Location*
 +
 image:grafana-url.png[]
+* Login using admin/graphsRcool
++
+image:grafana-login.png[]
 * Click on left-hand menu, and click on *Dashboards* Now click on the *General* folder displayed
 ** This will show a link to *GLOBEX Sentiment Analysis Dashboard*. Click on this to launch the Dashboard
 +
@@ -167,7 +169,7 @@ You will see a couple of data there from the reviews you had submitted in the pr
 
 Let's use a simulator to submit a number of reviews to see some serious stuff!!  \m/
 
-* Navigate back to the `sentiment-analysis` namespace and look for the `reviews-simulator` deployment and launch it.
+* Navigate back to the `sentiment-analysis` namespace in OpenShift console and look for the `reviews-simulator` deployment and launch it.
 +
 image:reviews-simulator.png[width=30%]
 * This is deployed as a knative service with zero replica. So you can see a pod getting created as soon as you launch it.
