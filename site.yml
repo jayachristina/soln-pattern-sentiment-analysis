@@ -3,7 +3,7 @@ runtime:
 
 site:
   title: Solution Patterns for Cloud Native Architectures
-  url: https://redhat-solution-patterns.github.io/solution-pattern-sentiment-analysis/
+  url: https://redhat-solution-patterns.github.io/solution-patterns
   start_page: solution-pattern-sentiment-analysis::index.adoc
 
 content:
@@ -21,7 +21,7 @@ asciidoc:
 
 ui:
   bundle:
-    url: https://github.com/redhat-solution-patterns/course-ui/releases/download/v0.1.13-custom/ui-bundle.zip
+    url: https://github.com/redhat-solution-patterns/course-ui/releases/download/v0.1.14-custom/ui-bundle.zip
     snapshot: true
   supplemental_files:
     - path: ./supplemental-ui
