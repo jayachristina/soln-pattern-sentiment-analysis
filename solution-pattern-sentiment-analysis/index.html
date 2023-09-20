@@ -195,11 +195,10 @@
 <div class="tab-pane" aria-labelledby="tabset1_a-href-1-solution-pattern-a">
 <div class="paragraph">
 <p><a href="#use-cases">1. Use cases</a><br>
-<a href="01-pattern.html#_the_story_behind_this_solution_pattern" class="xref page">2. The story behind this solution pattern</a><br>
-<a href="#use-cases">3. Use cases</a><br>
-<a href="01-pattern.html#_the_solution" class="xref page">4. The solution</a><br>
-<a href="#content_overview">5. Content overview</a><br>
-<a href="#_explore_more_solution_patterns">6. Explore more solution patterns</a></p>
+<a href="#story">2. The story behind this solution pattern</a><br>
+<a href="#solution">3. The solution</a><br>
+<a href="#content_overview">4. Content overview</a><br>
+<a href="#_explore_more_solution_patterns">5. Explore more solution patterns</a></p>
 </div>
 </div>
 <div class="tab-pane" aria-labelledby="tabset1_a-href-02-architecture-html-class-xref-page-2-architecture-a">
@@ -257,7 +256,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_the_story_behind_this_solution_pattern"><a class="anchor" href="#_the_story_behind_this_solution_pattern"></a><a class="link" href="#_the_story_behind_this_solution_pattern">2. The story behind this solution pattern</a></h2>
+<h2 id="story"><a class="anchor" href="#story"></a><a class="link" href="#story">2. The story behind this solution pattern</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This solution pattern extends <strong>Globex</strong> a fictitious retail store which has undergone modernization journey and has already adopted Kafka as a streaming platform. Globex wants to now extend their eCommerce website to allow customers to leave their reviews of the product catalogue.</p>
@@ -278,7 +277,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_the_solution"><a class="anchor" href="#_the_solution"></a><a class="link" href="#_the_solution">3. The Solution</a></h2>
+<h2 id="pattern"><a class="anchor" href="#pattern"></a><a class="link" href="#pattern">3. The Solution</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The solution based on an Event Driven Architecture which based on Apache Kafka as the data streaming platform for product reviews. The Product Reviews submitted by a customer is pushed in a Kafka topic, which is then consumed by both a <strong>Review Moderation Service</strong> (moderate for foul/abusive language) and <strong>Sentiment Analysis Service</strong> (scores the sentiment as positive or negative).</p>

@@ -167,7 +167,7 @@
   <div class="content">
 <article class="doc">
 <div class="sect1">
-<h2 id="_the_story_behind_this_solution_pattern"><a class="anchor" href="#_the_story_behind_this_solution_pattern"></a>The story behind this solution pattern</h2>
+<h2 id="story"><a class="anchor" href="#story"></a>The story behind this solution pattern</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This solution pattern extends <strong>Globex</strong> a fictitious retail store which has undergone modernization journey and has already adopted Kafka as a streaming platform. Globex wants to now extend their eCommerce website to allow customers to leave their reviews of the product catalogue.</p>
@@ -188,7 +188,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_the_solution"><a class="anchor" href="#_the_solution"></a>The Solution</h2>
+<h2 id="pattern"><a class="anchor" href="#pattern"></a>The Solution</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The solution based on an Event Driven Architecture which based on Apache Kafka as the data streaming platform for product reviews. The Product Reviews submitted by a customer is pushed in a Kafka topic, which is then consumed by both a <strong>Review Moderation Service</strong> (moderate for foul/abusive language) and <strong>Sentiment Analysis Service</strong> (scores the sentiment as positive or negative).</p>
