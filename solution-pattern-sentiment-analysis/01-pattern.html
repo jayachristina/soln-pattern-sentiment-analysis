@@ -166,46 +166,7 @@
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="story"><a class="anchor" href="#story"></a>The story behind this solution pattern</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This solution pattern extends <strong>Globex</strong> a fictitious retail store which has undergone modernization journey and has already adopted Kafka as a streaming platform. Globex wants to now extend their eCommerce website to allow customers to leave their reviews of the product catalogue.</p>
-</div>
-<div class="paragraph">
-<p>Globex would like to</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Moderate the language comments to ensure foul language is appropriately filtered out</p>
-</li>
-<li>
-<p>Build a Sentiment Analysis system to gain business intelligence based on the product reviews</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="pattern"><a class="anchor" href="#pattern"></a>The Solution</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The solution based on an Event Driven Architecture which based on Apache Kafka as the data streaming platform for product reviews. The Product Reviews submitted by a customer is pushed in a Kafka topic, which is then consumed by both a <strong>Review Moderation Service</strong> (moderate for foul/abusive language) and <strong>Sentiment Analysis Service</strong> (scores the sentiment as positive or negative).</p>
-</div>
-<div class="paragraph">
-<p>The data flows in and out of different systems through the OpenShift Serverless Eventing architecture which uses brokers, sources and triggers to build a scalable, fully decoupled system.</p>
-</div>
-<div class="paragraph">
-<p>Once a review is moderated and marked as suitable, this is persisted in the Globex Product Review DB (PostgreSql) to be then show on the Products page. The Sentimenet Analysis score is persisted within a Time Series DB (InfluxDB in this case) then used to build a Dashboard (Grafana) to view how well a particular category of products is performing over different time period</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/solution-overview.png" alt="solution overview">
-</div>
-</div>
-</div>
-</div>
+
 <nav class="pagination">
   <span class="prev"><a href="index.html" class="query-params-link">1. Home page</a></span>
   <span class="next"><a href="index.html#_content_overview" class="query-params-link">1.4 Content Overview</a></span>
