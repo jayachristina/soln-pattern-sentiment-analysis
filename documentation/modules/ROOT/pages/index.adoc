@@ -9,7 +9,7 @@ This solution pattern showcases an architecture which is scalable and efficient 
 
 This architecture demonstrates how an Event-Driven Architecture with Red Hat AMQ Streams and OpenShift Serverless can help build an intelligent system with OpenShift Data Science platform to drive business insights and drive an event-driven workflow.
 
-include::content-overview.adoc[]
+*Contributors* : _Jaya Baskaran (Red Hat), Ritesh Shah (Red Hat)_
 
 [#use-cases]
 == Use cases
@@ -44,5 +44,3 @@ Once a review is moderated and marked as suitable, this is persisted in the Glob
 
 image::solution-overview.png[]
 
-== Explore more solution patterns
-include::https://raw.githubusercontent.com/redhat-solution-patterns/redhat-solution-patterns.github.io/master/documentation/modules/ROOT/pages/solution-pattern-list.adoc[]
