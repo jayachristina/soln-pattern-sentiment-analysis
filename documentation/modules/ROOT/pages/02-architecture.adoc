@@ -1,4 +1,4 @@
-= Solution Pattern: Sentiment Analysis
+= Solution Pattern: Event-Driven Sentiment Analysis with Kafka and AI/ML
 :sectnums:
 :sectlinks:
 :doctype: book

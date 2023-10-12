@@ -1,4 +1,4 @@
-= Solution Patterns: Sentiment Analysis with Kafka + AIML through Event-Driven Architecture
+= Solution Patterns: Event-Driven Sentiment Analysis with Kafka and AI/ML
 :page-layout: home
 :sectnums:
 :sectlinks:
@@ -33,7 +33,7 @@ Globex would like to
 * Moderate the language comments to ensure foul language is appropriately filtered out
 * Build a Sentiment Analysis system to gain business intelligence based on the product reviews 
 
-[#pattern]
+[#the_solution]
 == The Solution
 
 The solution based on an Event Driven Architecture which based on Apache Kafka as the data streaming platform for product reviews. The Product Reviews submitted by a customer is pushed in a Kafka topic, which is then consumed by both a *Review Moderation Service* (moderate for foul/abusive language) and *Sentiment Analysis Service* (scores the sentiment as positive or negative).
